@@ -2,7 +2,4 @@
 
 ## Authors
 
-Ellen Hwang
-Joseph Simonian
-Yoon Rho
-Hoon Kim
+Ellen Hwang, Joseph Simonian, Yoon Rho, and Hoon Kim
