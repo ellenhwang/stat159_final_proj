@@ -1,0 +1,16 @@
+\section{Introduction}
+
+This is report, we are using the data from _College Scorecard_:
+
+[https://collegescorecard.ed.gov/](https://collegescorecard.ed.gov/)
+
+_College Scorecard_ is developed by the U.S. Department of Education (under Obama's Administration) to provide "key indicators about the cost and value of institutions across the country to help students choose a school that is well-suited to meet their needs, priced affordably, and is consistent with their educational and career goals". Read more in this [press release](http://www.ed.gov/news/press-releases/education-department-releases-college-scorecard-help-students-choose-best-college-them).
+
+With the various documents and the available data, we want to look at reliable and unbiased information about college performance and perfrom a consulting project for our client.
+
+Here is the profile for our client:
+
+- A credit institution that provides financial aid to students. The managers are interested in expanding their customer base but they would also like that most of the loans be payed back. Should they give credit to students attending any college? Should they give credit to students attending a university in which most students tend to find jobs after graduating?
+
+
+
