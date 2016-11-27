@@ -12,3 +12,6 @@ data/raw_data/income.csv:
 slides: slides/presentation.html
 slides/presentation.html: slides/presentation.Rmd
 	cd slides; Rscript -e "library(rmarkdown); render('presentation.Rmd')"
+
+session:
+	bash code/session.sh
