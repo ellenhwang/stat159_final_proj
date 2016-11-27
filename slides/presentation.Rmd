@@ -1,0 +1,152 @@
+---
+title: "..."
+author: "Young Hoon Kim, Yoon Jung Rho,Joseph Simonian, Ellen Hwang"
+date: "December 2, 2016"
+output: ioslides_presentation
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Abstract
+
+## Abstract
+
+This report will be examining the applications of ridge regression (RR), lasso regression (LR), principal components regression (PCR), and partial least squares regression (PLSR). We will also be exploring how cross validation methods apply to each of these models and how cross validation strengthens our models.
+
+## Abstract - cont
+
+Our project will be using the Credit dataset, taken from the webpage for the text, *An Introduction to Statistical Learning*, to perform this simple linear regression. We analyze credit card debt based on a number of factors, such as income, gender, and credit limit, and create predictive models for credit card debt through a number of linear regression models. This report will include a description of the data, methods, analysis, and results for the regression models created.
+
+# Introduction
+
+## Introduction
+
+In this project, we will be exploring 4 types of regression models that strengthen model interpretability and prediction accuracy.
+
+Two of the regression models, ridge regression and lasso regression, are shrinkage methods which constrains the coefficient estimates to shrink the coefficient estimates towards zero. This helps reduce coefficient estimates reduce their variance. They differ in the application of shrinkage - lasso implements parameter shrinkage and variable selection, whereas ridge merely modifies parameter weights.
+
+## Introduction - cont
+
+The other two regression methods, principal components analysis and partial least squares, are dimension reduction methods. Dimension reduction methods essentially reduce the number of predictors under consideration to strengthen a model. They differ in that PLS works to maximize inter-class variance in its low-dimensional model, whereas PCA maximizes the variance of features themselves.
+
+We will be applying these methods to the Credit Dataset to create various models predicting a person's Balance from various independent variables. We will discuss our methods in R, our various results, and conclusions about the relationships and statistics we find.
+
+# Data
+
+## Data
+
+For this model, we use the Credit.csv dataset available from the Introduction to Statistical Learning website [(download)](http://www-bcf.usc.edu/~gareth/ISL). This dataset is analyzed in Chapter 6 of the ISL book.
+
+This dataset contains "Balance", representing average credit card debt across a group of people, and 10 explanatory variables, of which 6 are quantitative and 4 categorical. The quantitative variables are: Income, Credit Limit, Credit Rating, No. of Cards, Age and Years of Education. The categorical variables are: Gender, Student Status, Marital Status and Ethnicity.
+
+# Methods
+
+## Preprocessing
+
+We use one-hot encoding to dummy out categorical variables, and perform mean-centering and standardization of all variables, setting their means to 0 and standard deviations to 1 to give us comparable scales.
+
+We then split the data into a training set (75\% of total data) and a testing set (25\% of total data) for the purposes of tuning hyperparameters (such as $\lambda$ in lasso and ridge regressions).
+
+## Lasso Regression
+
+With lasso regression, we first create a preliminary model using `glmnet()` on the training dataset, with $\alpha=1$ to represent the elasticnet mixing penalty used in lasso regression. We then cross validate our model on our training set using the function `cv.glmnet()`. During cross-validation, we perform a parameter search for lambda in the range $(10^{-10}, 10^{10})$, which was an expansion on the given grid from the project spec. Lastly, we fit a model to the full dataset and predict credit card balances using our best lambda found via CV.
+
+## Partial Least Squares Regression
+
+With PLS regression, we use the  `plsr()` function modeling *Balance* as a function of all other variables. To find the best number of components, we perform cross-validation and find the minimum of the validation PRESS features. Ultimately, we perform plsr regression on the full dataset using the best number of components found via cross-validation.
+
+## Ridge Regression
+
+As with lasso regression, we create an initial model using `glmnet()` on the training dataset, with $\alpha=0$ to represent the elasticnet mixing penalty used in ridge regression. We then cross validate our model on our training set using the function `cv.glmnet()`. Once again, we perform a parameter search for lambda using the extended grid $(10^{-10}, 10^{10})$. Finally, we fit a model to the full dataset and predict credit card balances using our best lambda found via CV.
+
+## Principal Components Regression
+
+Similar to with PLS regression, in PCR we `pcr()` function from the `pls` package to implement our regression. Again, we perform 10-fold cross-validation to determine the optimal number of components, and then make predictions of the full dataset based on that number of components.
+
+# Analysis
+
+```{r}
+load('../data/lasso-objects.RData')
+load('../data/pls-objects.RData')
+load('../data/ridge-objects.RData')
+load('../data/pcr-objects.RData')
+load('../data/ols-regression.RData')
+```
+
+## Lasso Regression
+
+When we perform cross validation and compute the associated test error we find that the MSE is quite low at $`r lasso.mse`$. There are also quite a few coefficients that are zero, as expected for lasso regression.
+
+```{r}
+lasso.coef.official
+```
+
+So all in all, we find that 6 predictors are relevant in lasso the regression: Income, Credit Limit, Credit Rating, Number of Credit Cards, Age, and Student Status - Education, Gender, Marital Status and Ethnicity all have coefficients of zero.
+
+## Ridge Regression
+
+When we perform cross validation and compute the associated test error we find that the MSE fairly low, though still higher than that found with lasso regression, at $`r ridge.mse`$. There are also quite a few coefficients that are zero, as expected for lasso regression.
+
+```{r}
+ridge.coef
+```
+
+Ridge regression generally has a lower probability than Lasso of setting unimportant components to 0, but as we see here, the coefficients Ethnicity, Marital Status and Education have all been set to 0. In addition, Gender has a very small coefficient, reinforcing our belief from Lasso regression that it is not predictive.
+
+## Principal Components Regression
+
+Looking at the pls output summary, we find our lowest cross-validation error occurs when we use `r pcr.best.mod` components are used. The corresponding test set MSE = `r pcr.mse`. We perform PCR using the full data set using M = `r pcr.best.mod` components (the number found in cross-validation), and obtain a model with the following coefficients:
+
+```{r}
+pcr.fit.full$coefficients[,,pcr.best.mod]
+```
+
+## Partial Least Squares Regression
+
+Looking at the pls output summary, we find our lowest cross-validation error occurs when we use `r pls.best.mod` components are used. The corresponding test set MSE = `r pls.mse`, very close to that found via PCR. We perform PLS using the full data set using M = `r pls.best.mod` components (the number found in cross-validation). We obtain a model with the following coefficients:
+
+```{r}
+pls.fit.full$coefficients[,,pls.best.mod]
+```
+
+# Results
+
+## Results
+
+We include a table of regression coefficients from all models below, along with a table of MSE for teach model:
+
+```{r xtable, results = "asis", echo = FALSE, eval=TRUE, message=FALSE}
+library('xtable')
+ridgeCoefs = as.matrix(ridge.coef)
+lassoCoefs = as.matrix(lasso.coef)
+plsCoefs = as.matrix(pls.fit.full$coefficients[,,pls.best.mod])
+pcrCoefs = as.matrix(pcr.fit.full$coefficients[,,pcr.best.mod])
+coefMatrix = cbind(ridgeCoefs, lassoCoefs, plsCoefs, pcrCoefs)
+colnames(coefMatrix) = c("ridge", "lasso", "pls", "pcr")
+coefTable = xtable(coefMatrix, caption = "Model Coefficients")
+print(coefTable, type = "latex", caption.placement = "top", comment = FALSE)
+```
+
+```{r, results = "asis", eval=TRUE, echo=FALSE, message=FALSE}
+options(xtable.comment = FALSE)
+Model = c("OLS", "Ridge", "Lasso", "PCR", "PLS")
+ols.mse = sum(ols.fit$residuals^2)/length(ols.fit$residuals)
+TestMSE = c(ols.mse, ridge.mse, lasso.mse, pcr.mse, pls.mse)
+mseDF = cbind(Model, TestMSE)
+mseTable = xtable(mseDF, caption = "Test MSE by Model", digits = 5)
+print(mseTable, type = "latex", caption.placement = "top", comment = FALSE)
+```
+
+From these results, we can clearly see that our worst model was simple ordinary least squares, followed by PLS and PCR, followed by Ridge and Lasso regressions, with Lasso having the overall lowest MSE.
+
+# Conclusions
+
+## Conclusions
+
+Throughout this project, we have used a variety of linear models to predict credit card Balance based on owner data. We began by cleaning and preprocessing the data, and then performed a variety of different regression techniques on both the quantitative and (one-hot encoded) qualitative factors.
+
+We found that the best predictors of credit card debt were not demographic but individual - factors such as income, credit rating, and student status. Demographic factors tended to be less predictive, and were indeed ignored by our final model.
+
+From our data, it is clear that shrinkage methods such as Lasso and Ridge are most effective at modeling this dataset, with Lasso in particular performing well.
