@@ -7,3 +7,8 @@ data: data/raw_data/income.csv
 
 data/raw_data/income.csv: 
 	curl $(url_income) > $@
+
+#creating slides in html file based on Rmd file
+slides: slides/presentation.html
+slides/presentation.html: slides/presentation.Rmd
+	cd slides; Rscript -e "library(rmarkdown); render('presentation.Rmd')"
