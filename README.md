@@ -2,7 +2,7 @@
 
 ## Authors
 
-Ellen Hwang, Joseph Simonian, Yoon Rho, and Hoon 
+Ellen Hwang, Joseph Simonian, Yoon Rho, and Hoon Kim
 
 ## File Structure
 
