@@ -9,7 +9,7 @@ keep_scorecard = c("UNITID", "INSTNM", "HCM2", "NUMBRANCH", "HIGHDEG", "CONTROL"
                    "UGDS_NHPI", "UGDS_2MOR", "UGDS_NRA", "UGDS_UNKN", "CURROPER", "NPT4_PUB",
                    "NPT4_PRIV", "NPT41_PUB", "NPT41_PRIV", "NPT4_3075_PUB", "NPT4_3075_PRIV",
                    "NPT4_75UP_PUB", "NPT4_75UP_PRIV", "TUITIONFEE_IN", "TUITIONFEE_OUT",
-                   "TUITFTE", "INEXPFTE", "C150_4", "C150_4_POOLED", "D150_4", "D150_4_POOLED",
+                   "TUITFTE", "INEXPFTE", "C150_4", "D150_4", "D150_4_POOLED",
                    "C150_4_WHITE", "C150_4_BLACK", "C150_4_HISP", "C150_4_ASIAN", "C150_4_AIAN",
                    "C150_4_NHPI", "C150_4_2MOR", "C150_4_NRA", "C150_4_UNKN", "PCTFLOAN", "CDR3",
                    "RPY_3YR_RT", "COMPL_RPY_3YR_RT", "NONCOM_RPY_3YR_RT", "LO_INC_RPY_3YR_RT",
@@ -20,11 +20,11 @@ keep_scorecard = c("UNITID", "INSTNM", "HCM2", "NUMBRANCH", "HIGHDEG", "CONTROL"
                    "RPY_7YR_RT", "COMPL_RPY_7YR_RT", "NONCOM_RPY_7YR_RT", "LO_INC_RPY_7YR_RT",
                    "MD_INC_RPY_7YR_RT", "HI_INC_RPY_7YR_RT", "FIRSTGEN_RPY_7YR_RT",
                    "NOTFIRSTGEN_RPY_7YR_RT", "INC_PCT_LO", "PAR_ED_PCT_1STGEN", "INC_PCT_M1",
-                   "INC_PCT_M2", "INC_PCT_H1", "INC_PCT_H2", "PAR_ED_PCT_MS", "PAR_ED_PCT_HS",
-                   "PAR_ED_PCT_PS", "GRAD_DEBT_MDN", "WDRAW_DEBT_MDN", "LO_INC_DEBT_MDN",
+                   "INC_PCT_M2", "INC_PCT_H1", "INC_PCT_H2",
+                   "DEBT_MDN", "GRAD_DEBT_MDN", "WDRAW_DEBT_MDN", "LO_INC_DEBT_MDN",
                    "MD_INC_DEBT_MDN", "HI_INC_DEBT_MDN", "FIRSTGEN_DEBT_MDN",
                    "NOTFIRSTGEN_DEBT_MDN", "LO_INC_DEBT_N", "MD_INC_DEBT_N",
-                   "HI_INC_DEBT_N", "LOAN_EVER", "FIRST_GEN", "C150_4_POOLED_SUPP",
+                   "HI_INC_DEBT_N", "LOAN_EVER", "C150_4_POOLED_SUPP",
                    "C200_4_POOLED_SUPP", "C100_4", "ICLEVEL", "CDR3_DENOM")
 
 keep_income = c("UNITID", "MN_EARN_WNE_P6", "MD_EARN_WNE_P6",
@@ -67,8 +67,9 @@ joined_subset = joined_subset[, -PCIP_All_Codes_Indices] # drop original PCIP co
 # Feature Engineering Net Price (NPT) for Each School
 # ***************************************************************************************
 NPT_Codes_Indices <- grep("NPT", colnames(joined_subset))
+Earnings_Codes_Indices <- grep("MN_EARN_WNE",colnames(joined_subset))
 joined_subset[,c(NPT_Codes_Indices, Earnings_Codes_Indices)] <- sapply(joined_subset[,c(NPT_Codes_Indices, Earnings_Codes_Indices)], function(c) {as.numeric(levels(c))[c]})
-
+str(joined_subset[,c(NPT_Codes_Indices, Earnings_Codes_Indices)])
 joined_subset$NPT_LowInc <- rowSums(joined_subset[,c('NPT41_PUB', 'NPT41_PRIV')], na.rm = T)
 joined_subset$NPT_MidInc <- rowSums(joined_subset[, c('NPT4_3075_PUB', 'NPT4_3075_PRIV')], na.rm = T)
 joined_subset$NPT_HighInc <- rowSums(joined_subset[, c('NPT4_75UP_PUB', 'NPT4_75UP_PRIV')], na.rm = T)
@@ -78,7 +79,7 @@ joined_subset <- joined_subset[joined_subset$NPT_HighInc > 0 |
                                  joined_subset$NPT_MidInc > 0 |
                                  joined_subset$NPT_LowInc > 0, ] 
 
-joined_subset <- joined_subset[, -c(NPT_Codes_Indices)] # drop original PCIP columns
+#joined_subset <- joined_subset[, -c(NPT_Codes_Indices)] # drop original PCIP columns
 
 # ***************************************************************************************
 # Feature Engineering Value Columns for Each School
@@ -89,7 +90,23 @@ joined_subset$LowInc_PostIncomeToCostRatio = joined_subset$MN_EARN_WNE_INC1_P6/j
 joined_subset$MidInc_PostIncomeToCostRatio = joined_subset$MN_EARN_WNE_INC2_P6/joined_subset$NPT_MidInc
 joined_subset$HighInc_PostIncomeToCostRatio = joined_subset$MN_EARN_WNE_INC3_P6/joined_subset$NPT_HighInc
 
+
+
+# ***************************************************************************************
+# Clean NULL and PrivacySuppressed and converting values to numeric
+# ***************************************************************************************
+source('functions/functions.R')
+
+names = joined_subset[,"INSTNM"]
+joined_subset$INSTNM <- NULL
+
+joined_subset <- as.data.frame(apply(joined_subset, 2, remove_null_and_privsup))
+joined_subset <- as.data.frame(sapply(joined_subset, function(f) {as.numeric(levels(f))[f]}))
+
+joined_subset$INSTNM <- names
+
 # ***************************************************************************************
 # Export Dataset
 # ***************************************************************************************
-read.csv(joined_subset, file = "../data/cleaned_data/clean_data.csv")
+write.csv(joined_subset, file = "../data/cleaned_data/clean_data.csv")
+
