@@ -11,6 +11,11 @@ data/raw_data/income.csv:
 cleaning:
 	cd code; Rscript data_cleaning_script.R
 
+
+ridge: data/ridge.RData
+data/ridge.RData: code/ridge.R
+	cd code/; Rscript ridge.R
+
 #creating slides in html file based on Rmd file
 slides: slides/presentation.html
 slides/presentation.html: slides/presentation.Rmd
