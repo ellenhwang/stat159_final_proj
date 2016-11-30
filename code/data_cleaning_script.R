@@ -105,8 +105,85 @@ joined_subset <- as.data.frame(sapply(joined_subset, function(f) {as.numeric(lev
 
 joined_subset$INSTNM <- names
 
+
 # ***************************************************************************************
-# Export Dataset
+# Correlation Matrices for 3/5/7 Yr Repayment Rates & CDR3 to see what predictors to use
 # ***************************************************************************************
+clean_data <- joined_subset
+
+# remove irrelavant values
+clean_data$INSTNM <- NULL
+clean_data$LowInc_PostIncomeToCostRatio <- NULL
+clean_data$MidInc_PostIncomeToCostRatio <- NULL
+clean_data$HighInc_PostIncomeToCostRatio <- NULL
+
+# correlation on all variables
+cormat <- cor(clean_data, use = "pairwise.complete.obs")
+
+# selecting correlation subsets by different response variables
+response_vars <- c('RPY_3YR_RT', 'RPY_5YR_RT', 'RPY_7YR_RT', 'CDR3')
+cor_rpy3yr <- cormat[ , 'RPY_3YR_RT']
+cor_rpy_5yr <- cormat[ , 'RPY_5YR_RT']
+cor_rpy_7yr <- cormat[ , 'RPY_7YR_RT']
+cor_cdr3 <- cormat[ , 'CDR3']
+
+
+rpy_vars <- grep('rpy', colnames(cormat), ignore.case = TRUE)
+
+# removes all repayment related columns
+cor_rpy3yr <- cor_rpy3yr[names(cor_rpy3yr)[-rpy_vars]]
+cor_rpy_5yr <- cor_rpy_5yr[names(cor_rpy_5yr)[-rpy_vars]]
+cor_rpy_7yr <- cor_rpy_7yr[names(cor_rpy_7yr)[-rpy_vars]]
+cor_cdr3 <- cor_cdr3[names(cor_cdr3)[-rpy_vars]]
+
+# variables with above .5 correlation with specified response (in descending order)
+high_cor_rpy3yr <- sort(cor_rpy3yr[abs(cor_rpy3yr) > .5],decreasing = T)
+high_cor_rpy_5yr <- sort(cor_rpy_5yr[abs(cor_rpy_5yr) > .5],decreasing = T)
+high_cor_rpy_7yr <- sort(cor_rpy_7yr[abs(cor_rpy_7yr) > .5],decreasing = T)
+high_cor_cdr3 <- sort(cor_cdr3[abs(cor_cdr3) > .5 & cor_cdr3 != 1],decreasing = T)
+
+
+# 3/5/7 Yr Repayment Rates & CDR3 tables
+rpy3yr_tbl <- clean_data[,c('RPY_3YR_RT', names(high_cor_rpy3yr))]
+cdr3_tbl <- clean_data[,c('CDR3', names(high_cor_cdr3))]
+
+# Basic OLS regression to see what variables to clean
+rpy3yr_reg <- lm(RPY_3YR_RT ~ ., data = rpy3yr_tbl)
+rpy3yr_regsum <- summary(rpy3yr_reg)
+
+cdr3_reg <- lm(CDR3 ~ ., data = cdr3_tbl)
+cdr3_regsum <- summary(cdr3_reg)
+
+# Remove variables with greater than .05 pvalue
+rpy3yr_pval <- rpy3yr_regsum$coefficients[-1,"Pr(>|t|)"]
+rpy3yr_preds <- names(rpy3yr_pval[rpy3yr_pval < .05])
+rpy3yr_tbl <- clean_data[,c('RPY_3YR_RT', rpy3yr_preds)]
+
+cdr3_pval <- cdr3_regsum$coefficients[-1,"Pr(>|t|)"]
+cdr3_preds <- names(cdr3_pval[cdr3_pval < .05])
+cdr3_tbl <- clean_data[,c('CDR3', cdr3_preds)]
+
+# Create Train and Test Sets
+set.seed(1)
+train_samp <- sample(nrow(clean_data), 0.7*nrow(clean_data))
+test_samp <- setdiff(seq_len(nrow(clean_data)), train_samp)
+
+rpy3yr_train <- rpy3yr_tbl[train_samp,]
+rpy3yr_test <- rpy3yr_tbl[test_samp,]
+
+cdr3_train <- cdr3_tbl[train_samp,]
+cdr3_test <- cdr3_tbl[test_samp,]
+
+# ***************************************************************************************
+# Export Datasets
+# ***************************************************************************************
+write.csv(rpy3yr_train, "../data/cleaned_data/rpy3yr_train.csv")
+write.csv(rpy3yr_test, "../data/cleaned_data/rpy3yr_test.csv")
+write.csv(rpy3yr_tbl, "../data/cleaned_data/rpy3yr_tbl.csv")
+
+write.csv(cdr3_train, "../data/cleaned_data/cdr3_train.csv")
+write.csv(cdr3_test, "../data/cleaned_data/cdr3_test.csv")
+write.csv(cdr3_tbl, "../data/cleaned_data/cdr3_tbl.csv")
+
 write.csv(joined_subset, file = "../data/cleaned_data/clean_data.csv")
 
