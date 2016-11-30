@@ -60,4 +60,6 @@ cdr3_preds <- names(cdr3_pval[cdr3_pval < .05])
 cdr3_tbl <- clean_data[,c('CDR3', cdr3_preds)]
 
 # Save tables 
+write.csv(rpy_3yr_tbl, "../data/cleaned_data/rpy3yr_tbl.csv")
+write.csv(cdr3_tbl, "../data/cleaned_data/cdr3_tbl.csv")
 save(rpy_3yr_tbl, cdr3_tbl, file = "../data/cleaned_predictor_tables.RData")
