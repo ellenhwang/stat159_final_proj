@@ -12,9 +12,9 @@ keep_scorecard = c("UNITID", "INSTNM", "HCM2", "NUMBRANCH", "HIGHDEG", "CONTROL"
                    "TUITFTE", "INEXPFTE", "C150_4", "D150_4", "D150_4_POOLED",
                    "C150_4_WHITE", "C150_4_BLACK", "C150_4_HISP", "C150_4_ASIAN", "C150_4_AIAN",
                    "C150_4_NHPI", "C150_4_2MOR", "C150_4_NRA", "C150_4_UNKN", "PCTFLOAN", "CDR3",
-                   "rpy3yr_RT", "COMPL_rpy3yr_RT", "NONCOM_rpy3yr_RT", "LO_INC_rpy3yr_RT",
-                   "MD_INC_rpy3yr_RT", "HI_INC_rpy3yr_RT", "FIRSTGEN_rpy3yr_RT",
-                   "NOTFIRSTGEN_rpy3yr_RT", "RPY_5YR_RT", "COMPL_RPY_5YR_RT",
+                   "RPY_3YR_RT", "COMPL_RPY_3YR_RT", "NONCOM_RPY_3YR_RT", "LO_INC_RPY_3YR_RT",
+                   "MD_INC_RPY_3YR_RT", "HI_INC_RPY_3YR_RT", "FIRSTGEN_RPY_3YR_RT",
+                   "NOTFIRSTGEN_RPY_3YR_RT", "RPY_5YR_RT", "COMPL_RPY_5YR_RT",
                    "NONCOM_RPY_5YR_RT", "LO_INC_RPY_5YR_RT", "MD_INC_RPY_5YR_RT",
                    "HI_INC_RPY_5YR_RT", "FIRSTGEN_RPY_5YR_RT", "NOTFIRSTGEN_RPY_5YR_RT",
                    "RPY_7YR_RT", "COMPL_RPY_7YR_RT", "NONCOM_RPY_7YR_RT", "LO_INC_RPY_7YR_RT",
@@ -121,8 +121,8 @@ clean_data$HighInc_PostIncomeToCostRatio <- NULL
 cormat <- cor(clean_data, use = "pairwise.complete.obs")
 
 # selecting correlation subsets by different response variables
-response_vars <- c('rpy3yr_RT', 'RPY_5YR_RT', 'RPY_7YR_RT', 'CDR3')
-cor_rpy3yr <- cormat[ , 'rpy3yr_RT']
+response_vars <- c('RPY_3YR_RT', 'RPY_5YR_RT', 'RPY_7YR_RT', 'CDR3')
+cor_rpy3yr <- cormat[ , 'RPY_3YR_RT']
 cor_rpy_5yr <- cormat[ , 'RPY_5YR_RT']
 cor_rpy_7yr <- cormat[ , 'RPY_7YR_RT']
 cor_cdr3 <- cormat[ , 'CDR3']
@@ -144,11 +144,11 @@ high_cor_cdr3 <- sort(cor_cdr3[abs(cor_cdr3) > .5 & cor_cdr3 != 1],decreasing = 
 
 
 # 3/5/7 Yr Repayment Rates & CDR3 tables
-rpy3yr_tbl <- clean_data[,c('rpy3yr_RT', names(high_cor_rpy3yr))]
+rpy3yr_tbl <- clean_data[,c('RPY_3YR_RT', names(high_cor_rpy3yr))]
 cdr3_tbl <- clean_data[,c('CDR3', names(high_cor_cdr3))]
 
 # Basic OLS regression to see what variables to clean
-rpy3yr_reg <- lm(rpy3yr_RT ~ ., data = rpy3yr_tbl)
+rpy3yr_reg <- lm(RPY_3YR_RT ~ ., data = rpy3yr_tbl)
 rpy3yr_regsum <- summary(rpy3yr_reg)
 
 cdr3_reg <- lm(CDR3 ~ ., data = cdr3_tbl)
@@ -157,7 +157,7 @@ cdr3_regsum <- summary(cdr3_reg)
 # Remove variables with greater than .05 pvalue
 rpy3yr_pval <- rpy3yr_regsum$coefficients[-1,"Pr(>|t|)"]
 rpy3yr_preds <- names(rpy3yr_pval[rpy3yr_pval < .05])
-rpy3yr_tbl <- clean_data[,c('rpy3yr_RT', rpy3yr_preds)]
+rpy3yr_tbl <- clean_data[,c('RPY_3YR_RT', rpy3yr_preds)]
 
 cdr3_pval <- cdr3_regsum$coefficients[-1,"Pr(>|t|)"]
 cdr3_preds <- names(cdr3_pval[cdr3_pval < .05])
@@ -173,9 +173,6 @@ rpy3yr_test <- rpy3yr_tbl[test_samp,]
 
 cdr3_train <- cdr3_tbl[train_samp,]
 cdr3_test <- cdr3_tbl[test_samp,]
-
-write.csv(train, file = 'data/train.csv')
-write.csv(test, file = 'data/test.csv')
 
 # ***************************************************************************************
 # Export Datasets
