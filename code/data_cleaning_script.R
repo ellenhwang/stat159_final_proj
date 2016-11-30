@@ -1,4 +1,4 @@
-keep_scorecard = c("UNITID", "INSTNM", "HCM2", "NUMBRANCH", "HIGHDEG", "CONTROL",
+keep_scorecard = c("UNITID", "INSTNM", "HCM2", "NUMBRANCH", "HIGHDEG", "CONTROL", 
                    "REGION", "CCBASIC", "ADM_RATE", "PCIP01", "PCIP03", "PCIP04", "PCIP05",
                    "PCIP09", "PCIP10", "PCIP11", "PCIP12", "PCIP13", "PCIP14", "PCIP15",
                    "PCIP16", "PCIP19", "PCIP22", "PCIP23", "PCIP24", "PCIP25", "PCIP26",
@@ -40,6 +40,20 @@ income_subset = income[,keep_income]
 
 joined_subset = merge(x = scorecard_subset, y = income_subset, by = "UNITID", all = TRUE)
 
+# ***************************************************************************************
+# Clean NULL and PrivacySuppressed and converting values to numeric
+# ***************************************************************************************
+source('functions/functions.R')
+clean_data <- joined_subset
+names = clean_data[,"INSTNM"]
+clean_data$INSTNM <- NULL
+
+clean_data <- as.data.frame(apply(clean_data, 2, remove_null_and_privsup))
+clean_data <- as.data.frame(sapply(clean_data, function(f) {as.numeric(levels(f))[f]}))
+
+clean_data$INSTNM <- names
+
+write.csv(clean_data, file = "../data/cleaned_data/clean_data.csv")
 # ***************************************************************************************
 # Feature Engineering STEM and NonSTEM Percentages
 # ***************************************************************************************
@@ -92,24 +106,11 @@ joined_subset$HighInc_PostIncomeToCostRatio = joined_subset$MN_EARN_WNE_INC3_P6/
 
 
 
-# ***************************************************************************************
-# Clean NULL and PrivacySuppressed and converting values to numeric
-# ***************************************************************************************
-source('functions/functions.R')
-
-names = joined_subset[,"INSTNM"]
-joined_subset$INSTNM <- NULL
-
-joined_subset <- as.data.frame(apply(joined_subset, 2, remove_null_and_privsup))
-joined_subset <- as.data.frame(sapply(joined_subset, function(f) {as.numeric(levels(f))[f]}))
-
-joined_subset$INSTNM <- names
-
 
 # ***************************************************************************************
 # Correlation Matrices for 3/5/7 Yr Repayment Rates & CDR3 to see what predictors to use
 # ***************************************************************************************
-clean_data <- joined_subset
+
 
 # remove irrelavant values
 clean_data$INSTNM <- NULL
@@ -185,5 +186,4 @@ write.csv(cdr3_train, "../data/cleaned_data/cdr3_train.csv")
 write.csv(cdr3_test, "../data/cleaned_data/cdr3_test.csv")
 write.csv(cdr3_tbl, "../data/cleaned_data/cdr3_tbl.csv")
 
-write.csv(joined_subset, file = "../data/cleaned_data/clean_data.csv")
 
