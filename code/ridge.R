@@ -3,9 +3,9 @@
 library(glmnet)
 
 #read csv
-rpy3yr <- read.csv("data/cleaned_data/rpy3yr_tbl.csv",row.names = 1)
-rpy3yr_test <- read.csv("data/cleaned_data/rpy3yr_test.csv",row.names = 1)
-rpy3yr_train <- read.csv("data/cleaned_data/rpy3yr_train.csv",row.names = 1)
+rpy3yr <- read.csv("../data/cleaned_data/rpy3yr_tbl.csv",row.names = 1)
+rpy3yr_test <- read.csv("../data/cleaned_data/rpy3yr_test.csv",row.names = 1)
+rpy3yr_train <- read.csv("../data/cleaned_data/rpy3yr_train.csv",row.names = 1)
 #convert them to matrix
 rpy3yr <- as.matrix(rpy3yr)
 rpy3yr_test <- as.matrix(rpy3yr_test)
@@ -65,7 +65,7 @@ rpy3yr_rr_coef <- as.matrix(rpy3yr_ridge_full_fit)
 
 # Plot the cross-validation errors in terms of the tunning parameter to visualize which parameter gives the "best" model:
 
-png(file = "../images/ridge_regression.png")
+png(file = "../images/rpy3yr_ridge_regression.png")
 plot(rpy3yr_rr_cv_out)
 dev.off
 
@@ -75,9 +75,9 @@ dev.off
 
 
 #read csv
-cdr3 <- read.csv("data/cleaned_data/cdr3_tbl.csv",row.names = 1)
-cdr3_test <- read.csv("data/cleaned_data/cdr3_test.csv",row.names = 1)
-cdr3_train <- read.csv("data/cleaned_data/cdr3_train.csv",row.names = 1)
+cdr3 <- read.csv("../data/cleaned_data/cdr3_tbl.csv",row.names = 1)
+cdr3_test <- read.csv("../data/cleaned_data/cdr3_test.csv",row.names = 1)
+cdr3_train <- read.csv("../data/cleaned_data/cdr3_train.csv",row.names = 1)
 #convert them to matrix
 cdr3 <- as.matrix(cdr3)
 cdr3_test <- as.matrix(cdr3_test)
@@ -132,7 +132,7 @@ cdr3_rr_coef <- as.matrix(cdr3_ridge_full_fit)
 
 # Plot the cross-validation errors in terms of the tunning parameter to visualize which parameter gives the "best" model:
 
-png(file = "../images/ridge_regression.png")
+png(file = "../images/cdr3_ridge_regression.png")
 plot(cdr3_rr_cv_out)
 dev.off
 
@@ -141,10 +141,10 @@ dev.off
 
 
 
-save(rpy3yr_rr_cv_out, cdr3_rr_cv_out
-     rpy3yr_rr_bestlam, cdr3_rr_bestlam
-     rpy3yr_ridge_test_mse, cdr3_ridge_test_mse
-     rpy3yr_ridge_full_fit, cdr3_ridge_full_fit
-     rpy3yr_rr_coef, cdr3_rr_coef
+save(rpy3yr_rr_cv_out, cdr3_rr_cv_out,
+     rpy3yr_rr_bestlam, cdr3_rr_bestlam,
+     rpy3yr_ridge_test_mse, cdr3_ridge_test_mse,
+     rpy3yr_ridge_full_fit, cdr3_ridge_full_fit,
+     rpy3yr_rr_coef, cdr3_rr_coef,
      file = "../data/ridge.RData" )
 
