@@ -6,6 +6,7 @@ code/
 	Functions/
 		functions.R
 	eda_script.R
+	data_cleaning_script.R
 	session_info_script.R
 	ridge.R
 	ols.R
