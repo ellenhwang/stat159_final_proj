@@ -5,6 +5,13 @@ Directory tree:
 data/
 	cleaned_data/
 		clean_data.csv
+		rpy3yr_train.csv
+		rpy3yr_test.csv
+		rpy3yr_tbl.csv
+		cdr3_train.csv
+		cdr3_test.csv
+		cdr3_tbl.csv
+		
 	raw_data/
 		income.csv 
 		MERGED2014_15_PP.csv
@@ -27,7 +34,13 @@ RData files:
 
 csv files:
 	clean_data.csv: 
-	income.csv: 
+	rpy3yr_train.csv: train data set for 3yr repayment
+	rpy3yr_test.csv: test data set for 3yr repayment
+	rpy3yr_tbl.csv: data set for 3yr repayment
+	cdr3_train.csv: train data set for cdr3 
+	cdr3_test.csv: test data set for cdr3
+	cdr3_tbl.csv: data set for cdr3
+	income.csv: raw data set for post-earnings
 	MERGED2014_15_PP.csv: raw data set
 
 
