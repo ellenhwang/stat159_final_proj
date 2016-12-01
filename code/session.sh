@@ -26,6 +26,13 @@ pandoc --version >> $info
 echo >> $info
 echo >> $info
 
+# Version of latex
+echo "latex Version" >> $info
+echo "--------------" >> $info
+latex --version >> $info
+echo >> $info
+echo >> $info
+
 # Version of R
 echo "R Version" >> $info
 echo "---------" >> $info
