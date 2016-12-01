@@ -1,4 +1,4 @@
-his directory contains code files for STAT 159 Final project
+This directory contains code files for STAT 159 Final project
 
 Directory tree:
 ```
