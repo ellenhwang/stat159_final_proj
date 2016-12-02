@@ -43,16 +43,16 @@ tuitionout_plot <- ggplot(clean_data, aes(x = log10(TUITIONFEE_OUT), y = RPY_3YR
 
 # Completion Rate vs 3 Yr Repayment Rate
 complrt_rpy3yr_scatter <- ggplot(clean_data, aes(x = RPY_3YR_RT, y = C100_4)) + geom_point() + geom_smooth() +
-  ggtitle('Scatter Plot of 3 Yr Repayment Rate vs Completion Rate for First-Time, Full-Time Students at 4 Yr Institutions') +
+  ggtitle('Scatter Plot of 3 Yr Repayment Rate vs \n Completion Rate for First-Time, Full-Time Students at 4 Yr Institutions') +
     labs(x = '3 Yr Repayment Rate', y = 'Completion Rate for First-Time, Full-Time Students at 4 Yr Institutions')
 
 # Average Net Price for Public Institutions vs Repayment Rate
 netprice_pub_rpy3yr_scatter <- ggplot(clean_data, aes(x = RPY_3YR_RT, y = NPT4_PUB)) + geom_point() + geom_smooth(method='lm') +
-  ggtitle('Scatter Plot of 3 Yr Repayment Rate vs Average Net Price for Public Institutions') +
+  ggtitle('Scatter Plot of 3 Yr Repayment Rate vs \n Average Net Price for Public Institutions') +
   labs(x = '3 Yr Repayment Rate', y = 'Average Net Price for Public Institutions')
 
 netprice_priv_rpy3yr_scatter <- ggplot(clean_data, aes(x = RPY_3YR_RT, y = NPT4_PRIV)) + geom_point() + geom_smooth(method='lm') +
-  ggtitle('Scatter Plot of 3 Yr Repayment Rate vs Average Net Price for Private Institutions') +
+  ggtitle('Scatter Plot of 3 Yr Repayment Rate vs \n Average Net Price for Private Institutions') +
   labs(x = '3 Yr Repayment Rate', y = 'Average Net Price for Private Institutions')
 
 # ***************************************************************************
