@@ -1,9 +1,10 @@
 # ################################################################
 # EDA
 # ################################################################
-setwd("~/stat159_final_proj/code")
+# import data
 clean_data <- read.csv('../data/cleaned_data/clean_data.csv')
 
+# libraries
 library(ggplot2)
 library(gridExtra)
 
