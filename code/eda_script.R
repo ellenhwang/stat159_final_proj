@@ -58,35 +58,35 @@ netprice_priv_rpy3yr_scatter <- ggplot(clean_data, aes(x = RPY_3YR_RT, y = NPT4_
 # ***************************************************************************
 # Export Plots
 # ***************************************************************************
-png('../images/rpy_region_barplot.png')
+png('../images/eda/rpy_region_barplot.png')
 rpy_region_barplot
 dev.off()
 
-png('../images/rpy3yr_control_barplot.png')
+png('../images/eda/rpy3yr_control_barplot.png')
 rpy_control_barplot
 dev.off()
 
-png('../images/rpy3yr_iclevel_barplot.png')
+png('../images/eda/rpy3yr_iclevel_barplot.png')
 rpy_iclevel_barplot
 dev.off()
 
-png('../images/rpy3yr_insttype_histogram.png')
+png('../images/eda/rpy3yr_insttype_histogram.png')
 grid.arrange(public_hist, private_np_hist, private_fp_hist)
 dev.off()
 
-png('../images/rpy3yr_tuition_scatter.png')
+png('../images/eda/rpy3yr_tuition_scatter.png')
 grid.arrange(tuition_plot, tuitionin_plot, tuitionout_plot)
 dev.off()
 
-png('../images/complrt_rpy3yr_scatter.png')
+png('../images/eda/complrt_rpy3yr_scatter.png')
 complrt_rpy3yr_scatter
 dev.off()
 
-png('../images/netprice_pub_rpy3yr_scatter.png')
+png('../images/eda/netprice_pub_rpy3yr_scatter.png')
 netprice_pub_rpy3yr_scatter
 dev.off()
 
-png('../images/netprice_priv_rpy3yr_scatter.png')
+png('../images/eda/netprice_priv_rpy3yr_scatter.png')
 netprice_priv_rpy3yr_scatter
 dev.off()
 
