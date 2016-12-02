@@ -1,50 +1,18 @@
+library(glmnet)
+source("functions/functions.R")
+
+grid = 10^seq(10, -2, length =100)
+set.seed(1)
+
 ## Ridge regression for rpy 3 yr
 
-library(glmnet)
-
 #read csv
-rpy3yr <- read.csv("../data/cleaned_data/rpy3yr_tbl.csv",row.names = 1)
-rpy3yr_test <- read.csv("../data/cleaned_data/rpy3yr_test.csv",row.names = 1)
-rpy3yr_train <- read.csv("../data/cleaned_data/rpy3yr_train.csv",row.names = 1)
-#convert them to matrix
-rpy3yr <- as.matrix(rpy3yr)
-rpy3yr_test <- as.matrix(rpy3yr_test)
-rpy3yr_train <- as.matrix(rpy3yr_train)
+rpy3yr_train_x <- as.matrix(read.csv("../data/cleaned_data/rpy3yr_train_x.csv",row.names = 1))
+rpy3yr_train_y <- as.matrix(read.csv("../data/cleaned_data/rpy3yr_train_y.csv",row.names = 1))
+rpy3yr_test_x <- as.matrix(read.csv("../data/cleaned_data/rpy3yr_test_x.csv",row.names = 1))
+rpy3yr_test_y <- as.matrix(read.csv("../data/cleaned_data/rpy3yr_test_y.csv",row.names = 1))
 
 
-# Predictors and Response variables
-rpy3yr_x <- rpy3yr[,c(2:11)]
-rpy3yr_y <- rpy3yr[,1]
-
-rpy3yr_test_x <- rpy3yr_test[,c(2:11)]
-rpy3yr_test_y <- rpy3yr_test[,1]
-
-rpy3yr_train_x <- rpy3yr_train[,c(2:11)]
-rpy3yr_train_y <- rpy3yr_train[,1]
-
-
-# The output from the fitting function will give you a 
-#list of models (from which you will select the "best" model);
-#save() this output in a .RData file.
-#save(cv.out, file = "")
-grid = 10^seq(10,-2,length =100)
-
-#take out missing values
-train_cc <- complete.cases(rpy3yr_train_x) & complete.cases(rpy3yr_train_y)
-rpy3yr_train_x <- rpy3yr_train[train_cc,c(2:11)]
-rpy3yr_train_y <- rpy3yr_train[train_cc,1]
-
-test_cc <- complete.cases(rpy3yr_test_x) & complete.cases(rpy3yr_test_y)
-rpy3yr_test_x <- rpy3yr_test[test_cc,c(2:11)]
-rpy3yr_test_y <- rpy3yr_test[test_cc,1]
-
-cc <- complete.cases(rpy3yr_x) & complete.cases(rpy3yr_y)
-rpy3yr_x <- rpy3yr[cc,c(2:11)]
-rpy3yr_y <- rpy3yr[cc,1]
-
-
-
-set.seed(1)
 rpy3yr_rr_cv_out = cv.glmnet(rpy3yr_train_x,rpy3yr_train_y, alpha = 0, lambda = grid, standardize = FALSE, intercept = FALSE)
 
 
@@ -67,51 +35,18 @@ rpy3yr_rr_coef <- as.matrix(rpy3yr_ridge_full_fit)
 
 png(file = "../images/rpy3yr_ridge_regression.png")
 plot(rpy3yr_rr_cv_out)
-dev.off
+dev.off()
 
 
 
-## Ridge regression for CDR3
-
+## ridge regression for CDR3
 
 #read csv
-cdr3 <- read.csv("../data/cleaned_data/cdr3_tbl.csv",row.names = 1)
-cdr3_test <- read.csv("../data/cleaned_data/cdr3_test.csv",row.names = 1)
-cdr3_train <- read.csv("../data/cleaned_data/cdr3_train.csv",row.names = 1)
-#convert them to matrix
-cdr3 <- as.matrix(cdr3)
-cdr3_test <- as.matrix(cdr3_test)
-cdr3_train <- as.matrix(cdr3_train)
+cdr3_train_x <- as.matrix(read.csv("../data/cleaned_data/cdr3_train_x.csv",row.names = 1))
+cdr3_train_y <- as.matrix(read.csv("../data/cleaned_data/cdr3_train_y.csv",row.names = 1))
+cdr3_test_x <- as.matrix(read.csv("../data/cleaned_data/cdr3_test_x.csv",row.names = 1))
+cdr3_test_y <- as.matrix(read.csv("../data/cleaned_data/cdr3_test_y.csv",row.names = 1))
 
-grid = 10^seq(10,-2,length =100)
-
-# Predictors and Response variables
-cdr3_x <- cdr3[,c(2:8)]
-cdr3_y <- cdr3[,1]
-
-cdr3_test_x <- cdr3_test[,c(2:8)]
-cdr3_test_y <- cdr3_test[,1]
-
-cdr3_train_x <- cdr3_train[,c(2:8)]
-cdr3_train_y <- cdr3_train[,1]
-
-
-#take out missing values
-cdr3_train_cc <- complete.cases(cdr3_train_x) & complete.cases(cdr3_train_y)
-cdr3_train_x <- cdr3_train[cdr3_train_cc,c(2:8)]
-cdr3_train_y <- cdr3_train[cdr3_train_cc,1]
-
-cdr3_test_cc <- complete.cases(cdr3_test_x) & complete.cases(cdr3_test_y)
-cdr3_test_x <- cdr3_test[cdr3_test_cc,c(2:8)]
-cdr3_test_y <- cdr3_test[cdr3_test_cc,1]
-
-cdr3_cc <- complete.cases(cdr3_x) & complete.cases(cdr3_y)
-cdr3_x <- cdr3[cdr3_cc,c(2:8)]
-cdr3_y <- cdr3[cdr3_cc,1]
-
-
-
-set.seed(1)
 cdr3_rr_cv_out = cv.glmnet(cdr3_train_x,cdr3_train_y, alpha = 0, lambda = grid, standardize = FALSE, intercept = FALSE)
 
 
@@ -134,11 +69,7 @@ cdr3_rr_coef <- as.matrix(cdr3_ridge_full_fit)
 
 png(file = "../images/cdr3_ridge_regression.png")
 plot(cdr3_rr_cv_out)
-dev.off
-
-
-
-
+dev.off()
 
 
 save(rpy3yr_rr_cv_out, cdr3_rr_cv_out,
@@ -147,4 +78,3 @@ save(rpy3yr_rr_cv_out, cdr3_rr_cv_out,
      rpy3yr_ridge_full_fit, cdr3_ridge_full_fit,
      rpy3yr_rr_coef, cdr3_rr_coef,
      file = "../data/ridge.RData" )
-
