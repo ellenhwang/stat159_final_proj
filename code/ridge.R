@@ -7,11 +7,12 @@ set.seed(1)
 ## Ridge regression for rpy 3 yr
 
 #read csv
-rpy3yr_train_x <- as.matrix(read.csv("../data/cleaned_data/rpy3yr_train_x.csv",row.names = 1))
-rpy3yr_train_y <- as.matrix(read.csv("../data/cleaned_data/rpy3yr_train_y.csv",row.names = 1))
-rpy3yr_test_x <- as.matrix(read.csv("../data/cleaned_data/rpy3yr_test_x.csv",row.names = 1))
-rpy3yr_test_y <- as.matrix(read.csv("../data/cleaned_data/rpy3yr_test_y.csv",row.names = 1))
-
+rpy3yr_train_x <- as.matrix(read.csv("../data/cleaned_data/NA_removed/rpy3yr_train_x.csv",row.names = 1))
+rpy3yr_train_y <- as.matrix(read.csv("../data/cleaned_data/NA_removed/rpy3yr_train_y.csv",row.names = 1))
+rpy3yr_test_x <- as.matrix(read.csv("../data/cleaned_data/NA_removed/rpy3yr_test_x.csv",row.names = 1))
+rpy3yr_test_y <- as.matrix(read.csv("../data/cleaned_data/NA_removed/rpy3yr_test_y.csv",row.names = 1))
+rpy3yr_x <- as.matrix(read.csv("../data/cleaned_data/NA_removed/rpy3yr_x.csv",row.names = 1))
+rpy3yr_y <- as.matrix(read.csv("../data/cleaned_data/NA_removed/rpy3yr_y.csv",row.names = 1))
 
 rpy3yr_rr_cv_out = cv.glmnet(rpy3yr_train_x,rpy3yr_train_y, alpha = 0, lambda = grid, standardize = FALSE, intercept = FALSE)
 
@@ -42,10 +43,12 @@ dev.off()
 ## ridge regression for CDR3
 
 #read csv
-cdr3_train_x <- as.matrix(read.csv("../data/cleaned_data/cdr3_train_x.csv",row.names = 1))
-cdr3_train_y <- as.matrix(read.csv("../data/cleaned_data/cdr3_train_y.csv",row.names = 1))
-cdr3_test_x <- as.matrix(read.csv("../data/cleaned_data/cdr3_test_x.csv",row.names = 1))
-cdr3_test_y <- as.matrix(read.csv("../data/cleaned_data/cdr3_test_y.csv",row.names = 1))
+cdr3_train_x <- as.matrix(read.csv("../data/cleaned_data/NA_removed/cdr3_train_x.csv",row.names = 1))
+cdr3_train_y <- as.matrix(read.csv("../data/cleaned_data/NA_removed/cdr3_train_y.csv",row.names = 1))
+cdr3_test_x <- as.matrix(read.csv("../data/cleaned_data/NA_removed/cdr3_test_x.csv",row.names = 1))
+cdr3_test_y <- as.matrix(read.csv("../data/cleaned_data/NA_removed/cdr3_test_y.csv",row.names = 1))
+cdr3_x <- as.matrix(read.csv("../data/cleaned_data/NA_removed/cdr3_x.csv",row.names = 1))
+cdr3_y <- as.matrix(read.csv("../data/cleaned_data/NA_removed/cdr3_y.csv",row.names = 1))
 
 cdr3_rr_cv_out = cv.glmnet(cdr3_train_x,cdr3_train_y, alpha = 0, lambda = grid, standardize = FALSE, intercept = FALSE)
 
