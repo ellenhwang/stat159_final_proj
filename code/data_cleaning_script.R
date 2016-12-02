@@ -187,3 +187,79 @@ write.csv(cdr3_test, "../data/cleaned_data/cdr3_test.csv")
 write.csv(cdr3_tbl, "../data/cleaned_data/cdr3_tbl.csv")
 
 
+# ***************************************************************************************
+# Prepare data for regressions
+# ***************************************************************************************
+
+rpy3yr <- as.matrix(rpy3yr_tbl)
+rpy3yr_test <- as.matrix(rpy3yr_test)
+rpy3yr_train <- as.matrix(rpy3yr_train)
+
+rpy3yr_x <- rpy3yr[,c(2:11)]
+rpy3yr_y <- rpy3yr[,1]
+rpy3yr_test_x <- rpy3yr_test[,c(2:11)]
+rpy3yr_test_y <- rpy3yr_test[,1]
+rpy3yr_train_x <- rpy3yr_train[,c(2:11)]
+rpy3yr_train_y <- rpy3yr_train[,1]
+
+# Calculate missing values
+col_avgs = apply(rpy3yr_x, 2, mean, na.rm=TRUE)
+
+rows_to_keep_train <- array(apply(rpy3yr_train_x, 1, keep_row)) & complete.cases(rpy3yr_train_y)
+rows_to_keep_test <- array(complete.cases(rpy3yr_test_y))
+rows_to_keep_full <- array(complete.cases(rpy3yr_y))
+rpy3yr_train_x <- rpy3yr_train[rows_to_keep_train,c(2:8)]
+rpy3yr_train_y <- rpy3yr_train[rows_to_keep_train,1]
+rpy3yr_test_x <- rpy3yr_test[rows_to_keep_test,c(2:8)]
+rpy3yr_test_y <- rpy3yr_test[rows_to_keep_test,1]
+rpy3yr_x <- rpy3yr[rows_to_keep_full,c(2:8)]
+rpy3yr_y <- rpy3yr[rows_to_keep_full,1]
+
+# Interpolate missing values
+rpy3yr_train_x <- t(apply(rpy3yr_train_x, 1, replace_nas))
+rpy3yr_test_x <- t(apply(rpy3yr_test_x, 1, replace_nas))
+rpy3yr_x <- t(apply(rpy3yr_x, 1, replace_nas))
+
+write.csv(rpy3yr_train_x, "../data/cleaned_data/NA_removed/rpy3yr_train_x.csv")
+write.csv(rpy3yr_test_x, "../data/cleaned_data/NA_removed/rpy3yr_test_x.csv")
+write.csv(rpy3yr_x, "../data/cleaned_data/NA_removed/rpy3yr_x.csv")
+write.csv(rpy3yr_train_y, "../data/cleaned_data/NA_removed/rpy3yr_train_y.csv")
+write.csv(rpy3yr_test_y, "../data/cleaned_data/NA_removed/rpy3yr_test_y.csv")
+write.csv(rpy3yr_y, "../data/cleaned_data/NA_removed/rpy3yr_y.csv")
+
+cdr3 <- as.matrix(cdr3_tbl)
+cdr3_test <- as.matrix(cdr3_test)
+cdr3_train <- as.matrix(cdr3_train)
+
+cdr3_x <- cdr3[,c(2:8)]
+cdr3_y <- cdr3[,1]
+cdr3_test_x <- cdr3_test[,c(2:8)]
+cdr3_test_y <- cdr3_test[,1]
+cdr3_train_x <- cdr3_train[,c(2:8)]
+cdr3_train_y <- cdr3_train[,1]
+
+# Calculate missing values
+col_avgs = apply(cdr3_x, 2, mean, na.rm=TRUE)
+
+rows_to_keep_train <- array(apply(cdr3_train_x, 1, keep_row)) & complete.cases(cdr3_train_y)
+rows_to_keep_test <- array(complete.cases(cdr3_test_y))
+rows_to_keep_full <- array(complete.cases(cdr3_y))
+cdr3_train_x <- cdr3_train[rows_to_keep_train,c(2:8)]
+cdr3_train_y <- cdr3_train[rows_to_keep_train,1]
+cdr3_test_x <- cdr3_test[rows_to_keep_test,c(2:8)]
+cdr3_test_y <- cdr3_test[rows_to_keep_test,1]
+cdr3_x <- cdr3[rows_to_keep_full,c(2:8)]
+cdr3_y <- cdr3[rows_to_keep_full,1]
+
+# Interpolate missing values
+cdr3_train_x <- t(apply(cdr3_train_x, 1, replace_nas))
+cdr3_test_x <- t(apply(cdr3_test_x, 1, replace_nas))
+cdr3_x <- t(apply(cdr3_x, 1, replace_nas))
+
+write.csv(cdr3_train_x, "../data/cleaned_data/NA_removed/cdr3_train_x.csv")
+write.csv(cdr3_test_x, "../data/cleaned_data/NA_removed/cdr3_test_x.csv")
+write.csv(cdr3_x, "../data/cleaned_data/NA_removed/cdr3_x.csv")
+write.csv(cdr3_train_y, "../data/cleaned_data/NA_removed/cdr3_train_y.csv")
+write.csv(cdr3_test_y, "../data/cleaned_data/NA_removed/cdr3_test_y.csv")
+write.csv(cdr3_y, "../data/cleaned_data/NA_removed/cdr3_y.csv")
+
