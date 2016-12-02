@@ -1,4 +1,4 @@
-keep_scorecard = c("UNITID", "INSTNM", "HCM2", "NUMBRANCH", "HIGHDEG", "CONTROL",
+keep_scorecard = c("UNITID", "INSTNM", "HCM2", "NUMBRANCH", "HIGHDEG", "CONTROL", 
                    "REGION", "CCBASIC", "ADM_RATE", "PCIP01", "PCIP03", "PCIP04", "PCIP05",
                    "PCIP09", "PCIP10", "PCIP11", "PCIP12", "PCIP13", "PCIP14", "PCIP15",
                    "PCIP16", "PCIP19", "PCIP22", "PCIP23", "PCIP24", "PCIP25", "PCIP26",
@@ -40,6 +40,20 @@ income_subset = income[,keep_income]
 
 joined_subset = merge(x = scorecard_subset, y = income_subset, by = "UNITID", all = TRUE)
 
+# ***************************************************************************************
+# Clean NULL and PrivacySuppressed and converting values to numeric
+# ***************************************************************************************
+source('functions/functions.R')
+clean_data <- joined_subset
+names = clean_data[,"INSTNM"]
+clean_data$INSTNM <- NULL
+
+clean_data <- as.data.frame(apply(clean_data, 2, remove_null_and_privsup))
+clean_data <- as.data.frame(sapply(clean_data, function(f) {as.numeric(levels(f))[f]}))
+
+clean_data$INSTNM <- names
+
+write.csv(clean_data, file = "../data/cleaned_data/clean_data.csv")
 # ***************************************************************************************
 # Feature Engineering STEM and NonSTEM Percentages
 # ***************************************************************************************
@@ -92,24 +106,11 @@ joined_subset$HighInc_PostIncomeToCostRatio = joined_subset$MN_EARN_WNE_INC3_P6/
 
 
 
-# ***************************************************************************************
-# Clean NULL and PrivacySuppressed and converting values to numeric
-# ***************************************************************************************
-source('functions/functions.R')
-
-names = joined_subset[,"INSTNM"]
-joined_subset$INSTNM <- NULL
-
-joined_subset <- as.data.frame(apply(joined_subset, 2, remove_null_and_privsup))
-joined_subset <- as.data.frame(sapply(joined_subset, function(f) {as.numeric(levels(f))[f]}))
-
-joined_subset$INSTNM <- names
-
 
 # ***************************************************************************************
 # Correlation Matrices for 3/5/7 Yr Repayment Rates & CDR3 to see what predictors to use
 # ***************************************************************************************
-clean_data <- joined_subset
+
 
 # remove irrelavant values
 clean_data$INSTNM <- NULL
@@ -185,5 +186,68 @@ write.csv(cdr3_train, "../data/cleaned_data/cdr3_train.csv")
 write.csv(cdr3_test, "../data/cleaned_data/cdr3_test.csv")
 write.csv(cdr3_tbl, "../data/cleaned_data/cdr3_tbl.csv")
 
-write.csv(joined_subset, file = "../data/cleaned_data/clean_data.csv")
+
+# ***************************************************************************************
+# Prepare data for regressions
+# ***************************************************************************************
+
+rpy3yr <- as.matrix(rpy3yr)
+rpy3yr_test <- as.matrix(rpy3yr_test)
+rpy3yr_train <- as.matrix(rpy3yr_train)
+
+rpy3yr_x <- rpy3yr[,c(2:11)]
+rpy3yr_y <- rpy3yr[,1]
+rpy3yr_test_x <- rpy3yr_test[,c(2:11)]
+rpy3yr_test_y <- rpy3yr_test[,1]
+rpy3yr_train_x <- rpy3yr_train[,c(2:11)]
+rpy3yr_train_y <- rpy3yr_train[,1]
+
+# Calculate missing values
+col_avgs = apply(rpy3yr_x, 2, mean, na.rm=TRUE)
+
+rows_to_keep_train <- array(apply(rpy3yr_train_x, 1, keep_row)) & complete.cases(rpy3yr_train_y)
+rows_to_keep_test <- array(complete.cases(rpy3yr_test_y))
+rpy3yr_train_x <- rpy3yr_train[rows_to_keep_train,c(2:8)]
+rpy3yr_train_y <- rpy3yr_train[rows_to_keep_train,1]
+rpy3yr_test_x <- rpy3yr_test[rows_to_keep_test,c(2:8)]
+rpy3yr_test_y <- rpy3yr_test[rows_to_keep_test,1]
+
+# Interpolate missing values
+rpy3yr_train_x <- t(apply(rpy3yr_train_x, 1, replace_nas))
+rpy3yr_test_x <- t(apply(rpy3yr_test_x, 1, replace_nas))
+
+write.csv(rpy3yr_train_x, "../data/cleaned_data/rpy3yr_train_x.csv")
+write.csv(rpy3yr_test_x, "../data/cleaned_data/rpy3yr_test_x.csv")
+write.csv(rpy3yr_train_y, "../data/cleaned_data/rpy3yr_train_y.csv")
+write.csv(rpy3yr_test_y, "../data/cleaned_data/rpy3yr_test_y.csv")
+
+cdr3 <- as.matrix(cdr3)
+cdr3_test <- as.matrix(cdr3_test)
+cdr3_train <- as.matrix(cdr3_train)
+
+cdr3_x <- cdr3[,c(2:8)]
+cdr3_y <- cdr3[,1]
+cdr3_test_x <- cdr3_test[,c(2:8)]
+cdr3_test_y <- cdr3_test[,1]
+cdr3_train_x <- cdr3_train[,c(2:8)]
+cdr3_train_y <- cdr3_train[,1]
+
+# Calculate missing values
+col_avgs = apply(cdr3_x, 2, mean, na.rm=TRUE)
+
+rows_to_keep_train <- array(apply(cdr3_train_x, 1, keep_row)) & complete.cases(cdr3_train_y)
+rows_to_keep_test <- array(complete.cases(cdr3_test_y))
+cdr3_train_x <- cdr3_train[rows_to_keep_train,c(2:8)]
+cdr3_train_y <- cdr3_train[rows_to_keep_train,1]
+cdr3_test_x <- cdr3_test[rows_to_keep_test,c(2:8)]
+cdr3_test_y <- cdr3_test[rows_to_keep_test,1]
+
+# Interpolate missing values
+cdr3_train_x <- t(apply(cdr3_train_x, 1, replace_nas))
+cdr3_test_x <- t(apply(cdr3_test_x, 1, replace_nas))
+
+write.csv(cdr3_train_x, "../data/cleaned_data/cdr3_train_x.csv")
+write.csv(cdr3_test_x, "../data/cleaned_data/cdr3_test_x.csv")
+write.csv(cdr3_train_y, "../data/cleaned_data/cdr3_train_y.csv")
+write.csv(cdr3_test_y, "../data/cleaned_data/cdr3_test_y.csv")
 
