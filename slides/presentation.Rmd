@@ -49,6 +49,6 @@ There is also a documentation that provides more on how to use the data, includi
 
 # Analysis
 
-# Conlcusion
+# Conclusion
 
 # Thank You!
