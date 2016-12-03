@@ -6,8 +6,58 @@ WRITE SOMETHING ABOUT USING REGRESSIONS TO SELECT VARIABLES
 After using correlation and regression to select features related to repayment, we were able to perform some exploratory data analysis. 
 
 \begin{figure}
-\caption{Figure 1: Scatter Plot of Completion Rate vs. 3 Year Repayment Rate}
+\caption{Scatter Plot of Completion Rate vs. 3 Year Repayment Rate}
 \centering
 \includegraphics[width=0.6\textwidth]{../images/eda/complrt_rpy3yr_scatter.png}
 
 \end{figure}
+
+
+
+
+
+
+
+
+\begin{figure}
+\caption{Barplot of Mean RPY_3YR_RT on REGION Levels}
+\centering
+\includegraphics[width=0.6\textwidth]{../images/eda/rpy_region_barplot.png}
+\end{figure}
+
+
+rpy_region_barplot.png:
+is a barplot of average value of rpy_3yr_rt for each region. rpy_3yr_rt is defined as a fraction of repayment cohort who are not in default, and with loan balances that have declined three years since entering repayment, excluding enrolled and military deferment from calculation. (rolling averages) and each university is divided into 9 regions: 0	U.S. Service Schools, 1New England (CT, ME, MA, NH, RI, VT), 2	Mid East (DE, DC, MD, NJ, NY, PA), 3	Great Lakes (IL, IN, MI, OH, WI),4	Plains (IA, KS, MN, MO, NE, ND, SD), 5	Southeast (AL, AR, FL, GA, KY, LA, MS, NC, SC, TN, VA, WV), 6	Southwest (AZ, NM, OK, TX), 7	Rocky Mountains (CO, ID, MT, UT, WY), 8	Far West (AK, CA, HI, NV, OR, WA), 9	Outlying Areas (AS, FM, GU, MH, MP, PR, PW, VI). Our graph is not showing region 0 because there is one university that is under region 0 and it did not have a value for rpy_3yr_rt. On barplot it shows that region 1 and 2 have highest repayment rate(0.73 and 0.68, respectively) and region 5 and 6 have lowest repayment rate (0.54)
+
+
+\begin{figure}
+\centering
+\includegraphics[width=0.6\textwidth]{../images/eda/rpy3yr_control_barplot}
+\caption{Barplot of Mean RPY_3YR_RT on CONTROL Levels}
+\end{figure}
+
+rpy3yr_control_barplot:
+is another barplot that shows average value of rpy_3yr_rt for each school type. Under CONTROL column, each school is divided into three categories: 1 = Public, 2 = Private nonprofit, 3 = Private for-profit. It shows that Private for nonprofit universities has highest average repayment rate with 0.77.
+
+\begin{figure}
+\caption{Distribution of 3 Yr Repayment Rates for Public Schools}
+\centering
+\includegraphics[width=0.6\textwidth]{../images/eda/rpy3yr_insttype_histogram}
+\end{figure}
+
+rpy3yr_insttype_histogram: 
+Helps better understanding of rpy3yr_control_barplot. rpy3yr_insttype-histogram shows density graph and histogram of each institution's repayment rate.
+
+\begin{figure}
+\caption{Barplot of Mean RPY_3YR_RT on ICLEVEL Levels}
+\centering
+\includegraphics[width=0.6\textwidth]{../images/eda/rpy3yr_iclevel_barplot.png}
+\end{figure}
+
+rpy3yr_iclevel_barplot.png:
+is a last barplot that shows average value of rpy_3yr_rt for each level of institution. Uncer ICLEVEL, each school is divided into three categories: 1 = 4-year,2 = 2-year, 3 = Less-than-2-year. It shows that 4-year institution has the highest average repayment rate with 0.69.
+
+
+
+
+
