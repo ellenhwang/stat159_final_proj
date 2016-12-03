@@ -53,11 +53,11 @@ complrt_rpy3yr_scatter <- ggplot(clean_data, aes(x = C100_4, y = RPY_3YR_RT)) + 
 # Average Net Price for Public Institutions vs Repayment Rate
 netprice_pub_rpy3yr_scatter <- ggplot(clean_data, aes(x = NPT4_PUB, y = RPY_3YR_RT)) + geom_point() + geom_smooth(method='lm') +
   ggtitle('Scatter Plot of 3 Yr Repayment Rate vs \n Average Net Price for Public Institutions') +
-  labs(y = '3 Yr Repayment Rate', x = 'Average Net Price for Public Institutions')
+  labs(y = '3 Yr Repayment Rate', x = 'Average Net Price for Public Institutions') + scale_x_continuous(limits = c(0, 50000))
 
 netprice_priv_rpy3yr_scatter <- ggplot(clean_data, aes(x = NPT4_PRIV, y = RPY_3YR_RT)) + geom_point() + geom_smooth(method='lm') +
-  ggtitle('Scatter Plot of 3 Yr Repayment Rate vs \n Average Net Price for Private Institutions') +
-  labs(y = '3 Yr Repayment Rate', x = 'Average Net Price for Private Institutions')
+  ggtitle('Scatter Plot of 3 Yr Repayment Rate vs \n Average Net Price for Private Institutions') + 
+  labs(y = '3 Yr Repayment Rate', x = 'Average Net Price for Private Institutions') + scale_x_continuous(limits = c(0, 50000))
 
 pctfloan_rpy3yr_scatter <- ggplot(clean_data, aes(x = PCTFLOAN, y = RPY_3YR_RT)) + geom_point() + geom_smooth(method='lm') +
   ggtitle('Scatter Plot of 3 Yr Repayment Rate vs \n Percent of Students Who Received Federal Student Loans') +
