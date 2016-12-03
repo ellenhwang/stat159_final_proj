@@ -1,6 +1,6 @@
 ---
 title: "Stat 159 Final Project - Providing Credit to Students"
-author: "Young Hoon Kim, Yoon Jung Rho,Joseph Simonian, Ellen Hwang"
+author: "TEAM W.O.S: Young Hoon Kim, Yoon Jung Rho,Joseph Simonian, Ellen Hwang"
 date: "December 2, 2016"
 output: ioslides_presentation
 ---
@@ -9,25 +9,19 @@ output: ioslides_presentation
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
+methods,results, analysis, conclusion, thank you slide
+
+
+
 # Abstract
 
 ## Abstract
 
 The final project for Stat 159 consists of performing a virtual consulting data analysis project using data from College Scorecard. The underlying goal is to use all the computational tools and apply all the concepts covered in the course to create a computationally reproducible analysis. 
 
-# Introduction
+# Intorduction
 
-## Introduction
-This is report, we are using the data from _College Scorecard_:
-
-[https://collegescorecard.ed.gov/](https://collegescorecard.ed.gov/)
-
-_College Scorecard_ is developed by the U.S. Department of Education (under Obama's Administration) to provide "key indicators about the cost and value of institutions across the country to help students choose a school that is well-suited to meet their needs, priced affordably, and is consistent with their educational and career goals". Read more in this [press release](http://www.ed.gov/news/press-releases/education-department-releases-college-scorecard-help-students-choose-best-college-them).
-
-With the various documents and the available data, we want to look at reliable and unbiased information about college performance and perfrom a consulting project for our client.
-
-
-## Introduction - cont
+## Introduction 
 
 Here is the profile for our client:
 
@@ -48,3 +42,13 @@ For our project, besides the main data, our team also used featured downloads pr
 There is also a documentation that provides more on how to use the data, including: Sources of the data, The construction of metrics, and Data considerations and limitations available at :
 [https://collegescorecard.ed.gov/data/documentation/](https://collegescorecard.ed.gov/data/documentation/)
 
+
+# Methods
+
+# Results
+
+# Analysis
+
+# Conlcusion
+
+# Thank You!
