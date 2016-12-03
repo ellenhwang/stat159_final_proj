@@ -19,22 +19,23 @@ cleaning:
 
 #regression targets 
 ols: 
+	cd code/regression_scripts/ols_script.R
 
 ridge: data/RData/ridge.RData
-data/RData/ridge.RData: code/regression_scripts/ridge.R
+data/ridge.RData: code/regression_scripts/ridge.R
 	cd code/regression_scripts/; Rscript ridge.R
 
 lasso: data/RData/lasso.RData
-data/RData/lasso.RData: code/regression_scripts/lasso.R
+data/lasso.RData: code/lasso.R
 	cd code/regression_scripts/; Rscript lasso.R
 
-#pcr: data/pcr.RData
+#pcr: data/RData/pcr.RData
 #data/pcr.RData: code/scripts/pcr.R
-#	cd code/scripts/; Rscript pcr.R
+#	cd code/regression_scripts/; Rscript pcr.R
 
-#plsr: data/plsr.RData
+#plsr: data/RData/plsr.RData
 #data/plsr.RData: code/scripts/plsr.R
-#	cd code/scripts/; Rscript plsr.R
+#	cd code/regression_scripts/; Rscript plsr.R
 #eda: 
 #	cd code; Rscript eda_script.R
 
