@@ -1,7 +1,11 @@
+# Section Names
 Rnws = $(wildcard report/sections/*.Rnw) 
+report = report
+
+# url of data
 url_income = https://ed-public-download.apps.cloud.gov/downloads/Most-Recent-Cohorts-Treasury-Elements.csv
 
-.PHONY = all data cleaning eda
+.PHONY = all data cleaning eda report
 
 data: data/raw_data/income.csv
 
@@ -42,13 +46,10 @@ regressions:
 	make plsr
 
 
-
 #First generating compiled Rnw files and then generate pdf version of Rnw	
-report: report/report.Rnw report/report.pdf
-report/report.Rmd: $(Rnws)
-	cat $(Rnws) > $@ #Automatic variable: the first target
-report/report.pdf: report/report.Rnw
-	cd report; Rscript -e "library(rmarkdown); render('report.Rnw', 'pdf_document')"
+report: $(Rnws)
+	cat $(Rnws) > report/report.Rnw #Automatic variable: the first target
+	cd report; pdflatex report.Rnw; rm report.aux report.out report.log
 
 #creating slides in html file based on Rmd file
 slides: slides/presentation.html
