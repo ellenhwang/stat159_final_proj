@@ -36,8 +36,9 @@ data/lasso.RData: code/lasso.R
 #plsr: data/RData/plsr.RData
 #data/plsr.RData: code/scripts/plsr.R
 #	cd code/regression_scripts/; Rscript plsr.R
-#eda: 
-#	cd code; Rscript eda_script.R
+
+eda: code/eda_script.R
+	cd code; Rscript eda_script.R
 
 
 #running regression targets at once
