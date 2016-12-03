@@ -18,7 +18,6 @@
 \author{Team W.O.S: Yoon Jung Rho, Young Hoon Kim, Ellen Hwang, Joseph Simonian}
 
 \begin{document}
-\SweaveOpts{concordance=TRUE}
 \maketitle
 
 \begin{abstract}

@@ -5,7 +5,7 @@ report = report
 # url of data
 url_income = https://ed-public-download.apps.cloud.gov/downloads/Most-Recent-Cohorts-Treasury-Elements.csv
 
-.PHONY = all data cleaning eda report
+.PHONY = all data cleaning eda report ols ridge lasso pslr pcr
 
 data: data/raw_data/income.csv
 
@@ -19,7 +19,7 @@ cleaning:
 
 #regression targets 
 ols: 
-	cd code/regression_scripts/ols_script.R
+	cd code/regression_scripts/; Rscript ols_script.R
 
 ridge: data/RData/ridge.RData
 data/ridge.RData: code/regression_scripts/ridge.R
