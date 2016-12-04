@@ -74,7 +74,7 @@ png('../images/eda/rpy3yr_control_barplot_histogram.png', width = 909, height = 
 grid.arrange(rpy_control_barplot, grid.arrange(public_hist, private_np_hist, private_fp_hist), ncol = 2)
 dev.off()
 
-png('../images/eda/iclevel_rpy3yr_histogram.png', width = 909, height = 488)
+png('../images/eda/iclevel_rpy3yr_barplot_histogram.png', width = 909, height = 488)
 grid.arrange(rpy_iclevel_barplot, grid.arrange(fouryr_hist, twoyr_hist, less2yr_hist), ncol = 2)
 dev.off()
 
