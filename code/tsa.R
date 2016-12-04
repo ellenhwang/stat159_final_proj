@@ -1,8 +1,14 @@
 ### Time Series Analysis on 3 year Repayment Rate ###
+# Library
+pkg = c("TSA", "forecast", "astsa")
+new.pkg = pkg[!(pkg %in% installed.packages()[,"Package"])]
+if (length(new.pkg)) {install.packages(new.pkg, dependencies = TRUE)}
+sapply(pkg, require, character.only = TRUE)
 # Loading data
 load('../data/RData/ts_to_use.RData')
 
-rpy_pred <- t(data.frame(rep(NA, 3)))
+# Prediction
+rpy_pred <- t(data.frame(rep(NA,3)))
 colnames(rpy_pred) <- c(2015, 2016, 2017)
 print("Forcasting begins!")
 time <- proc.time()
