@@ -12,7 +12,7 @@ rpy_pred <- t(data.frame(rep(NA,3)))
 colnames(rpy_pred) <- c(2015, 2016, 2017)
 print("Forcasting begins!")
 time <- proc.time()
-for (i in 1:3) {
+for (i in 1:nrow(rpy_allyr)) {
   if (i > 3) {
     print(paste0(i, "th prediction. ", (nrow(rpy_allyr) - i), " more to go!"))
   } else if (i == 3) {
