@@ -50,7 +50,8 @@ regressions:
 	make plsr
 
 
-#First generating compiled Rnw files and then generate pdf version of Rnw	
+#First generating compiled Rnw files and then generate pdf version of Rnw
+	
 report: $(Rnws)
 	cat $(Rnws) > report/report.Rnw #Automatic variable: the first target
 	cd report; pdflatex report.Rnw; rm report.aux report.out report.log
