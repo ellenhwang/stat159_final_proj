@@ -28,7 +28,7 @@ for (i in 1:3) {
   if (length(coef) != 3) {
     if (coef == 0) {
       if((rpy_allyr[i,3] < rpy_allyr[i,4]) & (rpy_allyr[i,4] < rpy_allyr[i,5]) & (rpy_allyr[i,5] < rpy_allyr[i,6])) {
-        coef <- c(0,0,3)
+        coef <- c(0,1,2)
       } else {
         coef <- append(coef, rep(0, (3 - length(coef))))
       }
