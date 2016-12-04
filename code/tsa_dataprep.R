@@ -53,7 +53,8 @@ nas <- complete.cases(rpy_allyr)
 rpy_allyr <- rpy_allyr[nas,]
 colnames(rpy_allyr[,c(1:2)]) <- c("INSTNM", "UNITID")
 colnames(rpy_allyr[,c(3:8)]) <- c(2009:2014)
-names <- c(as.character(rpy_allyr$m1.INSTNM), as.numeric(rpy_allyr$m1.UNITID))
+names <- rpy_allyr[,c(1:2)]
+names[,1] <- as.character(names[,1])
 
 # Save cleaned data
 write.csv(rpy_allyr, file = "../data/cleaned_data/ts_data.csv")
