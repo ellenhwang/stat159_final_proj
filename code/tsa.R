@@ -12,7 +12,7 @@ rpy_pred <- t(data.frame(rep(NA,3)))
 colnames(rpy_pred) <- c(2015, 2016, 2017)
 print("Forcasting begins!")
 time <- proc.time()
-for (i in 1:3) {
+for (i in 1:nrow(rpy_allyr)) {
   if (i > 3) {
     print(paste0(i, "th prediction. ", (nrow(rpy_allyr) - i), " more to go!"))
   } else if (i == 3) {
@@ -28,7 +28,7 @@ for (i in 1:3) {
   if (length(coef) != 3) {
     if (coef == 0) {
       if((rpy_allyr[i,3] < rpy_allyr[i,4]) & (rpy_allyr[i,4] < rpy_allyr[i,5]) & (rpy_allyr[i,5] < rpy_allyr[i,6])) {
-        coef <- c(0,0,3)
+        coef <- c(0,1,2)
       } else {
         coef <- append(coef, rep(0, (3 - length(coef))))
       }
