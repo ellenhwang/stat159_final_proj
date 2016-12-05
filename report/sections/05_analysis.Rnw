@@ -7,7 +7,7 @@ With the time series forecast of three years on each school, we were able to pic
 <<echo=FALSE, results = 'asis'>>=
 library(xtable)
 load('../data/RData/tsa_data.RData')
-tops <- xtable(top_100[1:10,], caption = 'Top 10 Schools')
+tops <- xtable(top_100[1:10,], caption = 'Top 10 Schools', digits=c(0,0,4))
 print(tops, comment = FALSE, table.placement = 'H', type = 'latex', caption.placement = 'top')
 cutoff <- top_100[nrow(top_100),2]
 school_100th <- top_100[nrow(top_100),1]
