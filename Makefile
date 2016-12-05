@@ -56,7 +56,8 @@ regressions:
 	
 report: $(Rnws)
 	cat $(Rnws) > report/report.Rnw #Automatic variable: the first target
-	cd report; pdflatex report.Rnw; rm report.aux report.out report.log
+	cd report; Rscript -e "library(knitr); knit2pdf('report.Rnw', output = 'report.tex')"
+	#cd report; pdflatex report.Rnw; rm report.aux report.out report.log
 
 #creating slides in html file based on Rmd file
 slides: slides/presentation.html
