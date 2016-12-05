@@ -69,7 +69,7 @@ slides/presentation.html: slides/presentation.Rmd
 	cd slides; Rscript -e "library(rmarkdown); render('presentation.Rmd')"
 
 tests:
-	Rscript code/test-that.R
+	Rscript code/test_that.R
 
 session:
 	bash code/session.sh

@@ -1,13 +1,23 @@
 \section{Results}
 
 \subsection{Correlation and Regession Results to find Relevant Variables}
-<<mse, echo=FALSE, results='asis'>>=
+<<load_data, echo=FALSE>>=
 library(xtable)
 load('../data/RData/ols.RData')
 load('../data/RData/lasso.RData')
 load('../data/RData/ridge.RData')
 load('../data/RData/pcr.RData')
 load('../data/RData/plsr.RData')
+load('../data/RData/correlation.RData')
+@
+Below is the table that contains predictors with absolute correlation value above 0.5. We decided that predictors with absolute correlation values above 0.5 would have influence that is significant enough in explaining repayment rate.
+<<corr, echo=FALSE, results='asis'>>=
+cor_tab <- xtable(high_cor_rpy3yr_tbl, caption='Predictors with high correlation', digits = c(0,5))
+print(cor_tab, comment = FALSE, table.placement = 'H', type = 'latex', caption.placement = 'top')
+@
+  
+Another measure that we employed in deciding predictors that explain our response variable well was running regression. In order to select the predictors and their coefficients that best account for the repayment rate, we ran Ordinary Least Squares, Lasso, Ridge, Principal Components, and Partial Least Squares regressions. From those five regressions, we compared the test mean-squared-error rates (MSE) of each regression. Below is the MSE table for all the regressions.
+<<mse, echo=FALSE, results='asis'>>=
 mse <- data.frame(rpy_3yr_regsum$sigma, rpy3yr_lasso_test_mse, rpy3yr_ridge_test_mse,
                   rpy_pcr_test_mse, rpy_pls_test_mse)
 colnames(mse) <- c("OLS", "Lasso", "Ridge", "PCR", "PLSR")
@@ -15,6 +25,7 @@ mse_table <- xtable(mse, caption = "MSE of regressions", digits=c(0,5,5,5,5,5))
 print(mse_table, comment = FALSE, table.placement = 'H', type = 'latex', caption.placement = 'top')
 @
 
+It is not difficult to observe that ridge regression has the lowest MSE value out of all regressions. Below is the regression predictors and corresponding coefficients from ridge regression.
 <<coef, echo=FALSE,  results='asis'>>=
 ridge_coef <- xtable(as.data.frame(rpy3yr_rr_coef[-1,]), caption = 'Ridge Coefficients', digits = c(0,7))
 print(ridge_coef, comment = FALSE, table.placement = 'H', type = 'latex', caption.placement = 'top')
