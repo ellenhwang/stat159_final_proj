@@ -5,12 +5,8 @@ new.pkg = pkg[!(pkg %in% installed.packages()[,"Package"])]
 if (length(new.pkg)) {install.packages(new.pkg, dependencies = TRUE)}
 sapply(pkg, require, character.only = TRUE)
 # Loading data
-<<<<<<< HEAD:code/tsa.R
-load('../data/RData/ts_to_use.RData')
-colnames(rpy_allyr) <- c(2009:2014)
-=======
 load('../../data/RData/ts_to_use.RData')
->>>>>>> 2393742e30496fca9fd41c492d5a51957b367c23:code/regression_scripts/tsa.R
+colnames(rpy_allyr) <- c(2009:2014)
 
 # Prediction
 rpy_pred <- t(data.frame(rep(NA,3)))
@@ -61,3 +57,12 @@ rpy_upto_2017 <- cbind(rpy_allyr, rpy_pred)
 # Save the Result
 print("Saving prediction data...")
 save(rpy_upto_2017, file = "../../data/RData/tsa_data.RData")
+
+####################################################
+##################### ANALYSIS #####################
+####################################################
+
+## Schools with more than 90% repayment rate on average in forecast
+more_than_90 <- pred[which(apply(pred,1,mean) >= .947),]
+
+
