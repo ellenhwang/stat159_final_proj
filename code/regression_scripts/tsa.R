@@ -54,15 +54,17 @@ print(proc.time() - time)
 rownames(rpy_pred) <- rownames(rpy_allyr)
 rpy_upto_2017 <- cbind(rpy_allyr, rpy_pred)
 
-# Save the Result
-print("Saving prediction data...")
-save(rpy_upto_2017, file = "../../data/RData/tsa_data.RData")
 
 ####################################################
 ##################### ANALYSIS #####################
 ####################################################
 
 ## Schools with more than 90% repayment rate on average in forecast
-more_than_90 <- pred[which(apply(pred,1,mean) >= .947),]
+pred <- rpy_upto_2017[,c(7,8,9)]
+pred$row_mean <- rowMeans(pred)
+pred$INSTNM <- names$m1.INSTNM
+top_100 <- pred[head(order(pred$row_mean, decreasing = T), 100), c("INSTNM", "row_mean")] #mean of columns above listed value
 
-
+# Save the Result
+print("Saving prediction data...")
+save(rpy_upto_2017, top_100, file = "../../data/RData/tsa_data.RData")
