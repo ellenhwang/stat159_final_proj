@@ -40,9 +40,10 @@ Documentation on all data is available at https://collegescorecard.ed.gov/data/d
 Response Variable: 3 Year Repayment Rate
 
 1. Data Cleaning: 
+  * replacing PrivacySuppressed columns with NULL
   * Remove all columns with at at most 50% NULL
   * replace remaining NULL columns with column means
-  * replacing PrivacySuppressed columns with NULL
+
 2. Variable Selection:
   * Manually organize remaining columns by category to pick out variables relevant to research question
   * Run correlation matrix on variables and select those with at least absolute value of .5 correlation to 3 year repayment rate
