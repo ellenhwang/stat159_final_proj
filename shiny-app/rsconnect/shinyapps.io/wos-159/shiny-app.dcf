@@ -1,0 +1,10 @@
+name: shiny-app
+title:
+account: wos-159
+server: shinyapps.io
+appId: 142166
+bundleId: 635803
+url: https://wos-159.shinyapps.io/shiny-app/
+when: 1480904852.74952
+asMultiple: FALSE
+asStatic: FALSE
