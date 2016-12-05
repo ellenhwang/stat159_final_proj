@@ -3,24 +3,27 @@ This directory contains code files for STAT 159 Final project
 Directory tree:
 ```
 code/
-	Functions/
-		functions.R
-	eda_script.R
+	README.md
 	data_cleaning_script.R
-	session_info_script.R
-	ridge.R
-	ols.R
-	lasso.R
-	pcr.R
-	plsr.R
+	eda_script.R
 	session.sh
+	session_info_script.R
+	tsa.R
+	tsa_dataprep.R
+	regression_scripts/
+		ols_script.R 
+		lasso.R
+		ridge.R
+		pcr.R
+		plsr.R
+	functions/
+		functions.R
 
 ```
 
 ```
 Code files:
 	eda_script.R: Exploratory Data Analysis
-	pdp_script.R: Pre-modeling Data Processing
 	session_info_script.R: containg all the software versions and R's session information
 	ols.R: ols regression
 	lasso.R: lasso regression
@@ -30,7 +33,9 @@ Code files:
 	test_regressions.R: containing test_that code
 	session.sh: bash script file generating session_info.txt
 	functions.R: file containing a funciton removing "PrivacySuppressed" and "NULL" of the Data to NA
-	data_cleaning_script.R: a script that writes: rpy3yr_train.csv, rpy3yr_test.csv, rpy3yr_tbl.csv, cdr3_train.csv, cdr3_test.csv, cdr3_tbl.csv, and clean_data.csv
+	data_cleaning_script.R: a script that writes: rpy3yr_train.csv, rpy3yr_test.csv, rpy3yr_tbl.csv, cdr3_train.csv, cdr3_test.csv, cdr3_tbl.csv, clean_data.csv, cdr3_x.csv, cdr3_y.csv, cdr3_test_x.csv, cdr3_test_y.csv, cdr3_train_x.csv, cdr3_train_y.csv,	rpy3yr_x.csv, rpy3yr_y.csv, rpy3yr_test_x.csv, rpy3yr_test_y.csv, rpy3yr_train_x.csv, and rpy3yr_train_y.csv
+	tsa.R:
+	tsa_dataprep.R
 ```
 
 ```

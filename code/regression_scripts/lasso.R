@@ -1,4 +1,6 @@
 library(glmnet)
+library(methods)
+
 source("../functions/functions.R")
 
 grid = 10^seq(10, -2, length =100)

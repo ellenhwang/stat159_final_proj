@@ -1,3 +1,7 @@
+.PHONY = all data cleaning eda report ols ridge lasso pslr pcr tsa clean
+
+all: data cleaning regressions report slides session
+
 # Section Names
 Rnws = $(wildcard report/sections/*.Rnw) 
 report = report
@@ -5,39 +9,38 @@ report = report
 # url of data
 url_income = https://ed-public-download.apps.cloud.gov/downloads/Most-Recent-Cohorts-Treasury-Elements.csv
 
-.PHONY = all data cleaning eda report ols ridge lasso pslr pcr
+data: data/raw_data/CollegeScorecard_Raw_Data.zip
 
-data: data/raw_data/income.csv
+data/raw_data/CollegeScorecard_Raw_Data.zip:
+	cd data/raw_data; wget https://ed-public-download.apps.cloud.gov/downloads/CollegeScorecard_Raw_Data.zip; unzip CollegeScorecard_Raw_Data.zip
+	cd data/raw_data; curl $(url_income) > income.csv
+	
+cleaning: 
+	cd code/data_cleaning; Rscript data_cleaning_script.R
+	cd code/data_cleaning; Rscript tsa_dataprep.R
 
-data/raw_data/income.csv: 
-	curl $(url_income) > $@
 
-cleaning:
-	cd code; Rscript data_cleaning_script.R
-
-
+eda: code/eda_script.R
+	cd code; Rscript eda_script.R
 
 #regression targets 
-ols: 
-	cd code/regression_scripts/; Rscript ols_script.R
+ols: code/data_cleaning/data_cleaning_script.R
+	cd code/regression_scripts; Rscript $@.R
 
-ridge: data/RData/ridge.RData
-data/ridge.RData: code/regression_scripts/ridge.R
-	cd code/regression_scripts/; Rscript ridge.R
+ridge: code/data_cleaning/data_cleaning_script.R
+	cd code/regression_scripts; Rscript $@.R
 
-lasso: data/RData/lasso.RData
-data/lasso.RData: code/lasso.R
-	cd code/regression_scripts/; Rscript lasso.R
+lasso: code/data_cleaning/data_cleaning_script.R
+	cd code/regression_scripts; Rscript $@.R
 
-#pcr: data/RData/pcr.RData
-#data/pcr.RData: code/scripts/pcr.R
-#	cd code/regression_scripts/; Rscript pcr.R
+pcr: code/data_cleaning/data_cleaning_script.R
+	cd code/regression_scripts/; Rscript $@.R
 
-#plsr: data/RData/plsr.RData
-#data/plsr.RData: code/scripts/plsr.R
-#	cd code/regression_scripts/; Rscript plsr.R
-#eda: 
-#	cd code; Rscript eda_script.R
+plsr: code/data_cleaning/data_cleaning_script.R
+	cd code/regression_scripts/; Rscript $@.R
+
+tsa: code/data_cleaning/tsa_dataprep.R
+	cd code/regression_scripts; Rscript $@.R; rm Rplots.pdf
 
 
 #running regression targets at once
@@ -49,15 +52,21 @@ regressions:
 	make plsr
 
 
-#First generating compiled Rnw files and then generate pdf version of Rnw	
+#First generating compiled Rnw files and then generate pdf version of Rnw
+	
 report: $(Rnws)
 	cat $(Rnws) > report/report.Rnw #Automatic variable: the first target
-	cd report; pdflatex report.Rnw; rm report.aux report.out report.log
+	cd report; Rscript -e "library(knitr); knit2pdf('report.Rnw', output = 'report.tex')"
+	cd report; rm report.aux report.log report.out report.tex
 
 #creating slides in html file based on Rmd file
 slides: slides/presentation.html
+
 slides/presentation.html: slides/presentation.Rmd
 	cd slides; Rscript -e "library(rmarkdown); render('presentation.Rmd')"
 
 session:
 	bash code/session.sh
+
+clean: 
+	rm -f report/report.pdf report/report.Rnw
