@@ -12,8 +12,7 @@ load('../data/RData/correlation.RData')
 @
 Below is the table that contains predictors with absolute correlation value above 0.5. We decided that predictors with absolute correlation values above 0.5 would have influence that is significant enough in explaining repayment rate.
 <<corr, echo=FALSE, results='asis'>>=
-rownames(high_cor_rpy3yr_tbl) <- NULL
-cor_tab <- xtable(high_cor_rpy3yr_tbl, caption='Predictors with high correlation', digits = c(0,5))
+cor_tab <- xtable(high_cor_rpy3yr_tbl, caption='Predictors with high correlation', digits = c(0,0,5))
 print(cor_tab, comment = FALSE, table.placement = 'H', type = 'latex', caption.placement = 'top')
 @
   
@@ -22,14 +21,14 @@ Another measure that we employed in deciding predictors that explain our respons
 mse <- data.frame(rpy_3yr_regsum$sigma, rpy3yr_lasso_test_mse, rpy3yr_ridge_test_mse,
                   rpy_pcr_test_mse, rpy_pls_test_mse)
 colnames(mse) <- c("OLS", "Lasso", "Ridge", "PCR", "PLSR")
-rownames(mse) <- NULL
-mse_table <- xtable(mse, caption = "MSE of regressions", digits=c(5,5,5,5,5))
+mse_table <- xtable(mse, caption = "MSE of regressions", digits=c(0,5,5,5,5,5))
 print(mse_table, comment = FALSE, table.placement = 'H', type = 'latex', caption.placement = 'top')
 @
 
 It is not difficult to observe that ridge regression has the lowest MSE value out of all regressions. Below is the regression predictors and corresponding coefficients from ridge regression.
 <<coef, echo=FALSE,  results='asis'>>=
 ridge_coef <- as.data.frame(rpy3yr_rr_coef[-1,])
+colnames(ridge_coef) <- "Coefficients"
 ridge_coef <- xtable(ridge_coef, caption = 'Ridge Coefficients', digits = c(0,7))
 print(ridge_coef, comment = FALSE, table.placement = 'H', type = 'latex', caption.placement = 'top')
 @
