@@ -1,7 +1,24 @@
 \section{Results}
 
 \subsection{Correlation and Regession Results to find Relevant Variables}
-WRITE SOMETHING ABOUT USING REGRESSIONS TO SELECT VARIABLES 
+<<mse, echo=FALSE, results='asis'>>=
+library(xtable)
+load('../data/RData/ols.RData')
+load('../data/RData/lasso.RData')
+load('../data/RData/ridge.RData')
+load('../data/RData/pcr.RData')
+load('../data/RData/plsr.RData')
+mse <- data.frame(rpy_3yr_regsum$sigma, rpy3yr_lasso_test_mse, rpy3yr_ridge_test_mse,
+                  rpy_pcr_test_mse, rpy_pls_test_mse)
+colnames(mse) <- c("OLS", "Lasso", "Ridge", "PCR", "PLSR")
+mse_table <- xtable(mse, caption = "MSE of regressions", digits=c(0,5,5,5,5,5))
+print(mse_table, comment = FALSE, table.placement = 'H', type = 'latex', caption.placement = 'top')
+@
+
+<<coef, echo=FALSE,  results='asis'>>=
+ridge_coef <- xtable(as.data.frame(rpy3yr_rr_coef[-1,]), caption = 'Ridge Coefficients', digits = c(0,7))
+print(ridge_coef, comment = FALSE, table.placement = 'H', type = 'latex', caption.placement = 'top')
+@
 
 
 \subsection{Exploratory Data Analysis}
@@ -91,13 +108,3 @@ This figure displays a barplot that shows average value of 3 Year Repayment Rate
 This figure is a barplot that shows average value of 3 Year Repayment Rate for each level of institution. Uncer ICLEVEL, each school is divided into three categories: 1 = 4-year,2 = 2-year, 3 = Less-than-2-year. It shows that 4-year institution has the highest average repayment rate with 0.69. On the right side of the barplot, there is a histogram/density plot of each institution's repayment rate for detailed analysis.
 \end{figure}
 
-<<echo=FALSE, results = 'asis', message = FALSE>>=
-library(xtable)
-
-load("../data/RData/ols.RData")
-load("../data/RData/ridge.RData")
-load("../data/RData/lasso.RData")
-load("../data/RData/pcr.RData")
-load("../data/RData/plsr.RData")
-
-@
