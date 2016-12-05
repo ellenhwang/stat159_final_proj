@@ -6,6 +6,7 @@ if (length(new.pkg)) {install.packages(new.pkg, dependencies = TRUE)}
 sapply(pkg, require, character.only = TRUE)
 # Loading data
 load('../data/RData/ts_to_use.RData')
+colnames(rpy_allyr) <- c(2009:2014)
 
 # Prediction
 rpy_pred <- t(data.frame(rep(NA,3)))
