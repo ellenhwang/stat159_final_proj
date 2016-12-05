@@ -116,57 +116,66 @@ stat159_final_proj/
 
 ## Phony Targets
 
-all data tests eda ols ridge lasso pcr plsr regressions report slides session cleaning
 
-1. all: eda regressions report
+.PHONY = all data cleaning eda report ols ridge lasso pslr pcr tsa clean slides session clean
 
-2. data: data/raw_data/income.csv
-   data/raw_data/income.csv: 
-		curl $(url_income) > $@
+1. all: data cleaning regressions report slides session
 
-3. cleaning:
-		cd code; Rscript data_cleaning_script.R
+2. data: data/raw_data/CollegeScorecard_Raw_Data.zip
 
-4. ols: 
-		cd code/regression_scripts/; Rscript ols_script.R
+   data/raw_data/CollegeScorecard_Raw_Data.zip:
+		cd data/raw_data; wget https://ed-public-download.apps.cloud.gov/downloads/CollegeScorecard_Raw_Data.zip; unzip CollegeScorecard_Raw_Data.zip
+		cd data/raw_data; curl $(url_income) > income.csv
+	
+3. cleaning: 
+		cd code/data_cleaning; Rscript data_cleaning_script.R
+		cd code/data_cleaning; Rscript tsa_dataprep.R
 
-5. ridge: data/RData/ridge.RData
-   data/ridge.RData: code/regression_scripts/ridge.R
-		cd code/regression_scripts/; Rscript ridge.R
 
-6. lasso: data/RData/lasso.RData
-   data/lasso.RData: code/lasso.R
-		cd code/regression_scripts/; Rscript lasso.R
-
-7. 	pcr: data/RData/pcr.RData
-    data/pcr.RData: code/scripts/pcr.R
-		cd code/regression_scripts/; Rscript pcr.R
-
-8. plsr: data/RData/plsr.RData
-   data/plsr.RData: code/scripts/plsr.R
-		cd code/regression_scripts/; Rscript plsr.R
-
-9. eda: code/eda_script.R
+4. eda: code/eda_script.R
 		cd code; Rscript eda_script.R
 
-10. regressions: 
+5. ols: code/data_cleaning/data_cleaning_script.R
+		cd code/regression_scripts; Rscript $@.R
+
+6. ridge: code/data_cleaning/data_cleaning_script.R
+		cd code/regression_scripts; Rscript $@.R
+
+7. lasso: code/data_cleaning/data_cleaning_script.R
+		cd code/regression_scripts; Rscript $@.R
+
+8. pcr: code/data_cleaning/data_cleaning_script.R
+		cd code/regression_scripts/; Rscript $@.R
+
+9. plsr: code/data_cleaning/data_cleaning_script.R
+		cd code/regression_scripts/; Rscript $@.R
+
+10. tsa: code/data_cleaning/tsa_dataprep.R
+		cd code/regression_scripts; Rscript $@.R; mv Rplots.pdf ../../images/ts_plots.pdf
+
+11. regressions: 
 		make ols
 		make ridge
 		make lasso
 		make pcr
 		make plsr
+		make tsa
 
-11. report: $(Rnws)
+
+12. report: $(Rnws)
 		cat $(Rnws) > report/report.Rnw #Automatic variable: the first target
-		cd report; pdflatex report.Rnw; rm report.aux report.out report.log
+		cd report; Rscript -e "library(knitr); knit2pdf('report.Rnw', output = 'report.tex')"
+		cd report; rm report.aux report.log report.out report.tex
 
-12. slides: slides/presentation.html
+13. slides: slides/presentation.html
 	slides/presentation.html: slides/presentation.Rmd
 		cd slides; Rscript -e "library(rmarkdown); render('presentation.Rmd')"
 
-13. session:
+14. session:
 		bash code/session.sh
 
+15. clean: 
+		rm -f report/report.pdf report/report.Rnw
 
 ## License
 
