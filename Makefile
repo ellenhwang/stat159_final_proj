@@ -3,7 +3,7 @@
 all: data cleaning regressions report slides session
 
 # Section Names
-Rnws = $(wildcard report/sections/*.Rnw) 
+Rnws = $(wildcard report/sections/*.Rnw)
 report = report
 
 # url of data
@@ -14,8 +14,8 @@ data: data/raw_data/CollegeScorecard_Raw_Data.zip
 data/raw_data/CollegeScorecard_Raw_Data.zip:
 	cd data/raw_data; wget https://ed-public-download.apps.cloud.gov/downloads/CollegeScorecard_Raw_Data.zip; unzip CollegeScorecard_Raw_Data.zip
 	cd data/raw_data; curl $(url_income) > income.csv
-	
-cleaning: 
+
+cleaning:
 	cd code/data_cleaning; Rscript data_cleaning_script.R
 	cd code/data_cleaning; Rscript tsa_dataprep.R
 
@@ -23,7 +23,7 @@ cleaning:
 eda: code/eda_script.R
 	cd code; Rscript eda_script.R
 
-#regression targets 
+#regression targets
 ols: code/data_cleaning/data_cleaning_script.R
 	cd code/regression_scripts; Rscript $@.R
 
@@ -44,7 +44,7 @@ tsa: code/data_cleaning/tsa_dataprep.R
 
 
 #running regression targets at once
-regressions: 
+regressions:
 	make ols
 	make ridge
 	make lasso
@@ -53,7 +53,7 @@ regressions:
 
 
 #First generating compiled Rnw files and then generate pdf version of Rnw
-	
+
 report: $(Rnws)
 	cat $(Rnws) > report/report.Rnw #Automatic variable: the first target
 	cd report; Rscript -e "library(knitr); knit2pdf('report.Rnw', output = 'report.tex')"
@@ -65,8 +65,11 @@ slides: slides/presentation.html
 slides/presentation.html: slides/presentation.Rmd
 	cd slides; Rscript -e "library(rmarkdown); render('presentation.Rmd')"
 
+tests:
+	Rscript code/test-that.R
+
 session:
 	bash code/session.sh
 
-clean: 
+clean:
 	rm -f report/report.pdf report/report.Rnw
