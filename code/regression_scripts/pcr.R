@@ -26,7 +26,7 @@ cdr_xfull <- as.matrix(read.csv("../../data/cleaned_data/NA_removed/cdr3_x.csv",
 cdr_yfull <- as.matrix(read.csv("../../data/cleaned_data/NA_removed/cdr3_y.csv", row.names = 1, stringsAsFactors = FALSE))
 
 ## PCR for RPY3YR
-set.seed(1234)
+set.seed(1)
 # 1) PCR fit
 rpy_pcr_fit= pcr(rpy_ytrain ~ rpy_xtrain, scale = TRUE, validation = "CV")
 

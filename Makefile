@@ -5,37 +5,38 @@ report = report
 # url of data
 url_income = https://ed-public-download.apps.cloud.gov/downloads/Most-Recent-Cohorts-Treasury-Elements.csv
 
-.PHONY = all data cleaning eda report ols ridge lasso pslr pcr
+.PHONY = all data cleaning eda report ols ridge lasso pslr pcr tsa clean
 
-data: data/raw_data/income.csv
+data: 
+	wget “https://ed-public-download.apps.cloud.gov/downloads/CollegeScorecard_Raw_Data.zip”; unzip
+	
 
 data/raw_data/income.csv: 
 	curl $(url_income) > $@
 
 cleaning:
-	cd code; Rscript data_cleaning_script.R
-
+	cd code/data_cleaning; Rscript data_cleaning_script.R
+	cd code/data_cleaning; Rscript tsa_dataprep.R
 
 
 #regression targets 
 ols: 
-	cd code/regression_scripts/; Rscript ols_script.R
+	cd code/regression_scripts; Rscript $@.R
 
-ridge: data/RData/ridge.RData
-data/ridge.RData: code/regression_scripts/ridge.R
-	cd code/regression_scripts/; Rscript ridge.R
+ridge: code/data_cleaning/data_cleaning_script.R
+	cd code/regression_scripts; Rscript $@.R
 
-lasso: data/RData/lasso.RData
-data/lasso.RData: code/lasso.R
-	cd code/regression_scripts/; Rscript lasso.R
+lasso: code/data_cleaning/data_cleaning_script.R
+	cd code/regression_scripts; Rscript $@.R
 
-#pcr: data/RData/pcr.RData
-#data/pcr.RData: code/scripts/pcr.R
-#	cd code/regression_scripts/; Rscript pcr.R
+pcr: code/data_cleaning/data_cleaning_script.R
+	cd code/regression_scripts/; Rscript $@.R
 
-#plsr: data/RData/plsr.RData
-#data/plsr.RData: code/scripts/plsr.R
-#	cd code/regression_scripts/; Rscript plsr.R
+plsr: code/data_cleaning/data_cleaning_script.R
+	cd code/regression_scripts/; Rscript $@.R
+
+tsa: code/data_cleaning/tsa_dataprep.R
+	cd code/regression_scripts; Rscript $@.R
 
 eda: code/eda_script.R
 	cd code; Rscript eda_script.R
@@ -48,6 +49,7 @@ regressions:
 	make lasso
 	make pcr
 	make plsr
+	make tsa
 
 
 #First generating compiled Rnw files and then generate pdf version of Rnw
@@ -58,8 +60,12 @@ report: $(Rnws)
 
 #creating slides in html file based on Rmd file
 slides: slides/presentation.html
+
 slides/presentation.html: slides/presentation.Rmd
 	cd slides; Rscript -e "library(rmarkdown); render('presentation.Rmd')"
 
 session:
 	bash code/session.sh
+
+clean: 
+	rm -f report/report.pdf report/report.Rnw

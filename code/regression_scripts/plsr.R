@@ -26,7 +26,7 @@ cdr_xfull <- as.matrix(read.csv("../../data/cleaned_data/NA_removed/cdr3_x.csv",
 cdr_yfull <- as.matrix(read.csv("../../data/cleaned_data/NA_removed/cdr3_y.csv", row.names = 1, stringsAsFactors = FALSE))
 
 ## PLSR for RPY3YR
-set.seed(1234)
+set.seed(1)
 # 1) PLSR Fit
 rpy_pls_fit = plsr(rpy_ytrain ~ rpy_xtrain, scale = TRUE, validation = "CV")
 rpy_opt_comp <- which.min(rpy_pls_fit$validation$PRESS)

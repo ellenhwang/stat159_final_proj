@@ -1,7 +1,7 @@
 #read csv
-rpy3yr <- read.csv("../data/cleaned_data/rpy3yr_tbl.csv",row.names = 1)
-rpy3yr_test <- read.csv("../data/cleaned_data/rpy3yr_test.csv",row.names = 1)
-rpy3yr_train <- read.csv("../data/cleaned_data/rpy3yr_train.csv",row.names = 1)
+rpy3yr <- read.csv("../../data/cleaned_data/rpy3yr_tbl.csv",row.names = 1)
+rpy3yr_test <- read.csv("../../data/cleaned_data/rpy3yr_test.csv",row.names = 1)
+rpy3yr_train <- read.csv("../../data/cleaned_data/rpy3yr_train.csv",row.names = 1)
 #convert them to matrix
 rpy3yr <- as.matrix(rpy3yr)
 rpy3yr_test <- as.matrix(rpy3yr_test)

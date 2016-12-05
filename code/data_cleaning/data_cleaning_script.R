@@ -32,8 +32,8 @@ keep_income = c("UNITID", "MN_EARN_WNE_P6", "MD_EARN_WNE_P6",
                 "PCT90_EARN_WNE_P6", "SD_EARN_WNE_P6", "GT_25K_P6", "MN_EARN_WNE_INC1_P6",
                 "MN_EARN_WNE_INC2_P6", "MN_EARN_WNE_INC3_P6")
 
-scorecard = read.csv("../data/raw_data/MERGED2014_15_PP.csv")
-income = read.csv("../data/raw_data/income.csv")
+scorecard = read.csv("../../data/raw_data/MERGED2014_15_PP.csv")
+income = read.csv("../../data/raw_data/income.csv")
 
 scorecard_subset = scorecard[,keep_scorecard]
 income_subset = income[,keep_income]
@@ -43,7 +43,7 @@ joined_subset = merge(x = scorecard_subset, y = income_subset, by = "UNITID", al
 # ***************************************************************************************
 # Clean NULL and PrivacySuppressed and converting values to numeric
 # ***************************************************************************************
-source('functions/functions.R')
+source('../functions/functions.R')
 clean_data <- joined_subset
 names = clean_data[,"INSTNM"]
 clean_data$INSTNM <- NULL
@@ -53,7 +53,7 @@ clean_data <- as.data.frame(sapply(clean_data, function(f) {as.numeric(levels(f)
 
 clean_data$INSTNM <- names
 
-write.csv(clean_data, file = "../data/cleaned_data/clean_data.csv")
+write.csv(clean_data, file = "../../data/cleaned_data/clean_data.csv")
 # ***************************************************************************************
 # Feature Engineering STEM and NonSTEM Percentages
 # ***************************************************************************************
@@ -178,13 +178,13 @@ cdr3_test <- cdr3_tbl[test_samp,]
 # ***************************************************************************************
 # Export Datasets
 # ***************************************************************************************
-write.csv(rpy3yr_train, "../data/cleaned_data/rpy3yr_train.csv")
-write.csv(rpy3yr_test, "../data/cleaned_data/rpy3yr_test.csv")
-write.csv(rpy3yr_tbl, "../data/cleaned_data/rpy3yr_tbl.csv")
+write.csv(rpy3yr_train, "../../data/cleaned_data/rpy3yr_train.csv")
+write.csv(rpy3yr_test, "../../data/cleaned_data/rpy3yr_test.csv")
+write.csv(rpy3yr_tbl, "../../data/cleaned_data/rpy3yr_tbl.csv")
 
-write.csv(cdr3_train, "../data/cleaned_data/cdr3_train.csv")
-write.csv(cdr3_test, "../data/cleaned_data/cdr3_test.csv")
-write.csv(cdr3_tbl, "../data/cleaned_data/cdr3_tbl.csv")
+write.csv(cdr3_train, "../../data/cleaned_data/cdr3_train.csv")
+write.csv(cdr3_test, "../../data/cleaned_data/cdr3_test.csv")
+write.csv(cdr3_tbl, "../../data/cleaned_data/cdr3_tbl.csv")
 
 
 # ***************************************************************************************
@@ -220,12 +220,12 @@ rpy3yr_train_x <- t(apply(rpy3yr_train_x, 1, replace_nas))
 rpy3yr_test_x <- t(apply(rpy3yr_test_x, 1, replace_nas))
 rpy3yr_x <- t(apply(rpy3yr_x, 1, replace_nas))
 
-write.csv(rpy3yr_train_x, "../data/cleaned_data/NA_removed/rpy3yr_train_x.csv")
-write.csv(rpy3yr_test_x, "../data/cleaned_data/NA_removed/rpy3yr_test_x.csv")
-write.csv(rpy3yr_x, "../data/cleaned_data/NA_removed/rpy3yr_x.csv")
-write.csv(rpy3yr_train_y, "../data/cleaned_data/NA_removed/rpy3yr_train_y.csv")
-write.csv(rpy3yr_test_y, "../data/cleaned_data/NA_removed/rpy3yr_test_y.csv")
-write.csv(rpy3yr_y, "../data/cleaned_data/NA_removed/rpy3yr_y.csv")
+write.csv(rpy3yr_train_x, "../../data/cleaned_data/NA_removed/rpy3yr_train_x.csv")
+write.csv(rpy3yr_test_x, "../../data/cleaned_data/NA_removed/rpy3yr_test_x.csv")
+write.csv(rpy3yr_x, "../../data/cleaned_data/NA_removed/rpy3yr_x.csv")
+write.csv(rpy3yr_train_y, "../../data/cleaned_data/NA_removed/rpy3yr_train_y.csv")
+write.csv(rpy3yr_test_y, "../../data/cleaned_data/NA_removed/rpy3yr_test_y.csv")
+write.csv(rpy3yr_y, "../../data/cleaned_data/NA_removed/rpy3yr_y.csv")
 
 cdr3 <- as.matrix(cdr3_tbl)
 cdr3_test <- as.matrix(cdr3_test)
@@ -256,10 +256,10 @@ cdr3_train_x <- t(apply(cdr3_train_x, 1, replace_nas))
 cdr3_test_x <- t(apply(cdr3_test_x, 1, replace_nas))
 cdr3_x <- t(apply(cdr3_x, 1, replace_nas))
 
-write.csv(cdr3_train_x, "../data/cleaned_data/NA_removed/cdr3_train_x.csv")
-write.csv(cdr3_test_x, "../data/cleaned_data/NA_removed/cdr3_test_x.csv")
-write.csv(cdr3_x, "../data/cleaned_data/NA_removed/cdr3_x.csv")
-write.csv(cdr3_train_y, "../data/cleaned_data/NA_removed/cdr3_train_y.csv")
-write.csv(cdr3_test_y, "../data/cleaned_data/NA_removed/cdr3_test_y.csv")
-write.csv(cdr3_y, "../data/cleaned_data/NA_removed/cdr3_y.csv")
+write.csv(cdr3_train_x, "../../data/cleaned_data/NA_removed/cdr3_train_x.csv")
+write.csv(cdr3_test_x, "../../data/cleaned_data/NA_removed/cdr3_test_x.csv")
+write.csv(cdr3_x, "../../data/cleaned_data/NA_removed/cdr3_x.csv")
+write.csv(cdr3_train_y, "../../data/cleaned_data/NA_removed/cdr3_train_y.csv")
+write.csv(cdr3_test_y, "../../data/cleaned_data/NA_removed/cdr3_test_y.csv")
+write.csv(cdr3_y, "../../data/cleaned_data/NA_removed/cdr3_y.csv")
 
