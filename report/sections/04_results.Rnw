@@ -25,7 +25,7 @@ mse_table <- xtable(mse, caption = "MSE of regressions", digits=c(0,5,5,5,5,5))
 print(mse_table, comment = FALSE, table.placement = 'H', type = 'latex', caption.placement = 'top')
 @
 
-It is not difficult to observe that ridge regression has the lowest MSE value out of all regressions. Below is the regression coefficients from ridge regression.
+It is not difficult to observe that ridge regression has the lowest MSE value out of all regressions. Below is the regression predictors and corresponding coefficients from ridge regression.
 <<coef, echo=FALSE,  results='asis'>>=
 ridge_coef <- xtable(as.data.frame(rpy3yr_rr_coef[-1,]), caption = 'Ridge Coefficients', digits = c(0,7))
 print(ridge_coef, comment = FALSE, table.placement = 'H', type = 'latex', caption.placement = 'top')
