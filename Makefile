@@ -16,9 +16,8 @@ data/raw_data/non_null_cols.csv: data/raw_data/CollegeScorecard_Raw_Data.zip
 	cd code/data_cleaning; Rscript remove_null_columns.R
 
 data/raw_data/CollegeScorecard_Raw_Data.zip:
-	cd data/raw_data;
-	curl $(url_scorecard) > CollegeScorecard_Raw_Data.zip;
-	unzip CollegeScorecard_Raw_Data.zip
+	curl $(url_scorecard) > data/raw_data/CollegeScorecard_Raw_Data.zip;
+	cd data/raw_data; unzip CollegeScorecard_Raw_Data.zip
 	cd data/raw_data; curl $(url_income) > income.csv
 
 cleaning: data
@@ -56,6 +55,7 @@ regressions:
 	make lasso
 	make pcr
 	make plsr
+	make tsa
 
 
 #First generating compiled Rnw files and then generate pdf version of Rnw
