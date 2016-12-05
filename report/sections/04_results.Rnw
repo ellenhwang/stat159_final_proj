@@ -88,16 +88,16 @@ This figure displays a barplot that shows average value of 3 Year Repayment Rate
   \newline
   
   \raggedright
-This figure is a barplot that shows average value of 3 Year Repayment Rate for each level of institution. Uncer ICLEVEL, each school is divided into three categories: 1 = 4-year,2 = 2-year, 3 = Less-than-2-year. It shows that 4-year institution has the highest average repayment rate with 0.69. On the right side of the barplot, there is a histogram/desnity plot of each institution's repayment rate for detailed analysis.
+This figure is a barplot that shows average value of 3 Year Repayment Rate for each level of institution. Uncer ICLEVEL, each school is divided into three categories: 1 = 4-year,2 = 2-year, 3 = Less-than-2-year. It shows that 4-year institution has the highest average repayment rate with 0.69. On the right side of the barplot, there is a histogram/density plot of each institution's repayment rate for detailed analysis.
 \end{figure}
 
-<<echo=FALSE, results = 'asis'>>=
+<<echo=FALSE, results = 'asis', message = FALSE>>=
 library(xtable)
 
-load("../../data/RData/ols.RData")
-load("../../data/RData/ridge.RData")
-load("../../data/RData/lasso.RData")
-load("../../data/RData/pcr.RData")
-load("../../data/RData/plsr.RData")
+load("../data/RData/ols.RData")
+load("../data/RData/ridge.RData")
+load("../data/RData/lasso.RData")
+load("../data/RData/pcr.RData")
+load("../data/RData/plsr.RData")
 
 @

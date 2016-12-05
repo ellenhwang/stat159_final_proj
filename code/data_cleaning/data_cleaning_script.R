@@ -139,12 +139,8 @@ cor_cdr3 <- cor_cdr3[names(cor_cdr3)[-rpy_vars]]
 
 # variables with above .5 correlation with specified response (in descending order)
 high_cor_rpy3yr <- sort(cor_rpy3yr[abs(cor_rpy3yr) > .5],decreasing = T)
-high_cor_rpy_5yr <- sort(cor_rpy_5yr[abs(cor_rpy_5yr) > .5],decreasing = T)
-high_cor_rpy_7yr <- sort(cor_rpy_7yr[abs(cor_rpy_7yr) > .5],decreasing = T)
-high_cor_cdr3 <- sort(cor_cdr3[abs(cor_cdr3) > .5 & cor_cdr3 != 1],decreasing = T)
 
-
-# 3/5/7 Yr Repayment Rates & CDR3 tables
+# 3 Yr Repayment Rates & CDR3 tables
 rpy3yr_tbl <- clean_data[,c('RPY_3YR_RT', names(high_cor_rpy3yr))]
 cdr3_tbl <- clean_data[,c('CDR3', names(high_cor_cdr3))]
 
@@ -186,7 +182,20 @@ write.csv(cdr3_train, "../../data/cleaned_data/cdr3_train.csv")
 write.csv(cdr3_test, "../../data/cleaned_data/cdr3_test.csv")
 write.csv(cdr3_tbl, "../../data/cleaned_data/cdr3_tbl.csv")
 
+high_cor_rpy3yr_tbl <- data.frame(
+  Column = names(high_cor_rpy3yr),
+  `Correlation Value` = high_cor_rpy3yr
+)
 
+# ***************************************************************************************
+# Save highly correlated columns: correlation table
+# ***************************************************************************************
+high_cor_rpy3yr_tbl <- data.frame(
+  Variable = names(high_cor_rpy3yr),
+  `Correlation Value` = high_cor_rpy3yr
+)
+rownames(high_cor_rpy3yr_tbl) <- NULL
+save(high_cor_rpy3yr_tbl, file = "../../data/RData/correlation.RData")
 # ***************************************************************************************
 # Prepare data for regressions
 # ***************************************************************************************
