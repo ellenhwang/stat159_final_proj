@@ -51,19 +51,20 @@ stat159_final_proj/
 
 	code/
 		README.md
-		data_cleaning_script.R
 		eda_script.R
 		remove_NA_values.R
 		session.sh
 		session_info_script.R
-		tsa.R
-		tsa_dataprep.R
+		data_cleaning/
+			data_cleaning_script.R
+			tsa_dataprep.R
 		regression_scripts/
 			ols_script.R 
 			lasso.R
 			ridge.R
 			pcr.R
 			plsr.R
+			tsa.R
 		functions/
 			functions.R
 
