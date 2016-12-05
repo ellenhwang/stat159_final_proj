@@ -3,8 +3,8 @@ title:
 account: wos-159
 server: shinyapps.io
 appId: 142166
-bundleId: 635803
+bundleId: 636748
 url: https://wos-159.shinyapps.io/shiny-app/
-when: 1480904852.74952
+when: 1480966824.4301
 asMultiple: FALSE
 asStatic: FALSE
