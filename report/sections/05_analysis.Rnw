@@ -9,6 +9,7 @@ library(xtable)
 load('../data/RData/tsa_data.RData')
 tops <- xtable(top_100[1:10,], caption = 'Top 10 Schools')
 print(tops, comment = FALSE, table.placement = 'H', type = 'latex', caption.placement = 'top')
+cutoff <- top_100[nrow(top_100),2]
 @
 
-Notice the first school on the list has the average forecasted repayment rate above 1, which is impossible. This can be explained by the insufficient data availability for each schools.
+Notice the first school on the list has the average forecasted repayment of 1. This was fixed from its original value of 1.017357 since repayment rate cannot exceed 1. Such anomaly can be explained by the insufficient data availability for each school. According to the time series analysis, the cutoff for the projected repayment rate top 100 schools was \Sexpr{cutoff}, 
