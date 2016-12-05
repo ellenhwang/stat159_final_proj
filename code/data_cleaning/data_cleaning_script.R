@@ -32,7 +32,7 @@ keep_income = c("UNITID", "MN_EARN_WNE_P6", "MD_EARN_WNE_P6",
                 "PCT90_EARN_WNE_P6", "SD_EARN_WNE_P6", "GT_25K_P6", "MN_EARN_WNE_INC1_P6",
                 "MN_EARN_WNE_INC2_P6", "MN_EARN_WNE_INC3_P6")
 
-scorecard = read.csv("../../data/raw_data/MERGED2014_15_PP.csv")
+scorecard = read.csv("../../data/raw_data/non_null_cols.csv")
 income = read.csv("../../data/raw_data/income.csv")
 
 scorecard_subset = scorecard[,keep_scorecard]
