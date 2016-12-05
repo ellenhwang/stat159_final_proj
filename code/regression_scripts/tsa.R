@@ -5,7 +5,7 @@ new.pkg = pkg[!(pkg %in% installed.packages()[,"Package"])]
 if (length(new.pkg)) {install.packages(new.pkg, dependencies = TRUE)}
 sapply(pkg, require, character.only = TRUE)
 # Loading data
-load('../data/RData/ts_to_use.RData')
+load('../../data/RData/ts_to_use.RData')
 
 # Prediction
 rpy_pred <- t(data.frame(rep(NA,3)))
@@ -55,4 +55,4 @@ rpy_upto_2017 <- cbind(rpy_allyr, rpy_pred)
 
 # Save the Result
 print("Saving prediction data...")
-save(rpy_upto_2017, file = "../data/RData/tsa_data.RData")
+save(rpy_upto_2017, file = "../../data/RData/tsa_data.RData")

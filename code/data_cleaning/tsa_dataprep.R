@@ -1,8 +1,7 @@
-getwd()
 # ***************************************************************************************
 # Clean NULL and PrivacySuppressed and converting values to numeric
 # ***************************************************************************************
-source('functions/functions.R')
+source('../functions/functions.R')
 clean_data_all <- function(clean_data) {
   names = clean_data[,"INSTNM"]
   clean_data$INSTNM <- NULL
@@ -19,12 +18,12 @@ drop_schools = function(df_to_fix, ref_df) {
 
 # Import data
 keep_cr = c("UNITID", "INSTNM", "RPY_3YR_RT")
-m1 = clean_data_all(read.csv("../../projects/MERGED2009_10_PP.csv", stringsAsFactors = FALSE)[,keep_cr])
-m2 = clean_data_all(read.csv("../../projects/MERGED2010_11_PP.csv", stringsAsFactors = FALSE)[,keep_cr])
-m3 = clean_data_all(read.csv("../../projects/MERGED2011_12_PP.csv", stringsAsFactors = FALSE)[,keep_cr])
-m4 = clean_data_all(read.csv("../../projects/MERGED2012_13_PP.csv", stringsAsFactors = FALSE)[,keep_cr])
-m5 = clean_data_all(read.csv("../../projects/MERGED2013_14_PP.csv", stringsAsFactors = FALSE)[,keep_cr])
-m6 = clean_data_all(read.csv("../../projects/MERGED2014_15_PP.csv", stringsAsFactors = FALSE)[,keep_cr])
+m1 = clean_data_all(read.csv("../../data/raw_data/MERGED2009_10_PP.csv", stringsAsFactors = FALSE)[,keep_cr])
+m2 = clean_data_all(read.csv("../../data/raw_data/MERGED2010_11_PP.csv", stringsAsFactors = FALSE)[,keep_cr])
+m3 = clean_data_all(read.csv("../../data/raw_data/MERGED2011_12_PP.csv", stringsAsFactors = FALSE)[,keep_cr])
+m4 = clean_data_all(read.csv("../../data/raw_data/MERGED2012_13_PP.csv", stringsAsFactors = FALSE)[,keep_cr])
+m5 = clean_data_all(read.csv("../../data/raw_data/MERGED2013_14_PP.csv", stringsAsFactors = FALSE)[,keep_cr])
+m6 = clean_data_all(read.csv("../../data/raw_data/MERGED2014_15_PP.csv", stringsAsFactors = FALSE)[,keep_cr])
 
 # Merge to get the schools that all appear on all the data sets
 merge12 = merge(x = m1, y = m2, by = "UNITID", all = FALSE)
@@ -57,9 +56,9 @@ names <- rpy_allyr[,c(1:2)]
 names[,1] <- as.character(names[,1])
 
 # Save cleaned data
-write.csv(rpy_allyr, file = "../data/cleaned_data/ts_data.csv")
+write.csv(rpy_allyr, file = "../../data/cleaned_data/ts_data.csv")
 
 rpy_allyr$m1.INSTNM <- NULL
 rpy_allyr$m1.UNITID <- NULL
 # Save RData
-save(rpy_allyr, names, file = "../data/RData/ts_to_use.RData")
+save(rpy_allyr, names, file = "../../data/RData/ts_to_use.RData")
