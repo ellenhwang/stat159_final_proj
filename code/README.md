@@ -4,20 +4,24 @@ Directory tree:
 ```
 code/
 	README.md
-	data_cleaning_script.R
 	eda_script.R
 	session.sh
 	session_info_script.R
-	tsa.R
-	tsa_dataprep.R
+	data_cleaning/
+		data_cleaning_script.R
+		tsa_dataprep.R
 	regression_scripts/
 		ols_script.R 
 		lasso.R
 		ridge.R
 		pcr.R
 		plsr.R
+		tsa.R
 	functions/
 		functions.R
+	tests/
+		test_cleaning.R
+	test_that.R
 
 ```
 
@@ -30,7 +34,8 @@ Code files:
 	ridge.R: ridge regression
 	pcr.R: pcr regression
 	plsr.R: plsr regression
-	test_regressions.R: containing test_that code
+	test_cleaning.R: containing test_that code
+	test_that.R: R file that runs tests
 	session.sh: bash script file generating session_info.txt
 	functions.R: file containing a funciton removing "PrivacySuppressed" and "NULL" of the Data to NA
 	data_cleaning_script.R: a script that writes: rpy3yr_train.csv, rpy3yr_test.csv, rpy3yr_tbl.csv, cdr3_train.csv, cdr3_test.csv, cdr3_tbl.csv, clean_data.csv, cdr3_x.csv, cdr3_y.csv, cdr3_test_x.csv, cdr3_test_y.csv, cdr3_train_x.csv, cdr3_train_y.csv,	rpy3yr_x.csv, rpy3yr_y.csv, rpy3yr_test_x.csv, rpy3yr_test_y.csv, rpy3yr_train_x.csv, and rpy3yr_train_y.csv
@@ -41,6 +46,9 @@ Code files:
 ```
 Folder: 
 	Functions: Containing functions.R file
+	Data_cleaning: containing code that cleans data for regression
+	Test: containing test code
+	regression_scripts: containing all the regression code
 ```
 <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"><img alt="Creative Commons License" style="border-
 width:0" src="https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png" /></a><br />This work is licensed under a <a rel="license"
