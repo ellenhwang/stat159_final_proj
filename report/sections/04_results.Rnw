@@ -32,7 +32,14 @@ colnames(ridge_coef) <- "Coefficients"
 ridge_coef <- xtable(ridge_coef, caption = 'Ridge Coefficients', digits = c(0,7))
 print(ridge_coef, comment = FALSE, table.placement = 'H', type = 'latex', caption.placement = 'top')
 @
-
+According to the table above, our client should pay close attention to:  \\
+1. Percentages of aided students with family incomes between $48,001 - $75,000 in nominal dollars  \\
+2. 150 percent completion rate for less-than-four-year institutions, pooled in two-year rolling averages and suppressed for small n size  \\
+3. 10th percentile of earnings of students working and not enrolled 6 years after entry  \\
+4. Share of students earning over 25,000 dollars per year (threshold earnings) 6 years after entry  \\
+5. Completion rate for first-time, full-time students at four-year institutions (150 percent of expected time to completion/6 years)  \\
+6. Average net price for family with more than 75,000-dollar income to pay for the education for public institution  \\
+7. Out-of-state tuition and fees  \\
 
 \subsection{Exploratory Data Analysis}
 After using correlation and regression to select features related to repayment, we were able to perform some exploratory data analysis. We have listed some important visualizations on an \href{https://wos-159.shinyapps.io/shiny-app/}{online Shiny interface} and below.
