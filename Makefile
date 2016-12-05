@@ -40,7 +40,7 @@ plsr: code/data_cleaning/data_cleaning_script.R
 	cd code/regression_scripts/; Rscript $@.R
 
 tsa: code/data_cleaning/tsa_dataprep.R
-	cd code/regression_scripts; Rscript $@.R
+	cd code/regression_scripts; Rscript $@.R; rm Rplots.pdf
 
 
 #running regression targets at once
