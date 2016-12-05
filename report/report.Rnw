@@ -53,7 +53,7 @@ mse_table <- xtable(mse, caption = "MSE of regressions", digits=c(0,5,5,5,5,5))
 print(mse_table, comment = FALSE, table.placement = 'H', type = 'latex', caption.placement = 'top')
 @
 
-<<coef, eche=FALSE, results='asis'>>=
+<<coef, echo=FALSE,  results='asis'>>=
 ridge_coef <- xtable(as.data.frame(rpy3yr_rr_coef[-1,]), caption = 'Ridge Coefficients', digits = c(0,7))
 print(ridge_coef, comment = FALSE, table.placement = 'H', type = 'latex', caption.placement = 'top')
 @
@@ -105,7 +105,7 @@ The figure aboce is a scatterplot of 3 Year Repayment Rate vs average net price 
 
 
 \begin{figure}[H]
-  \caption{Scatter Plot of Repayment Rates on Type of Institution}
+  \caption{Scatter Plot of 3 Year Repayment Rates vs Percent of Students Who Received Federal Student Loans}
   \centering
   \includegraphics[width=0.6\textwidth]{../images/eda/pctfloan_rpy3yr_scatter}
   \centering
@@ -127,10 +127,10 @@ The figure aboce is a scatterplot of 3 Year Repayment Rate vs percent of student
 This figure displays a barplot of average value of 3 Year Repayment Rate for each region. 3 Year Repayment Rate is defined as a fraction of repayment cohort who are not in default, and with loan balances that have declined three years since entering repayment, excluding enrolled and military deferment from calculation. (rolling averages) and each university is divided into 9 regions: 0	U.S. Service Schools, 1New England (CT, ME, MA, NH, RI, VT), 2	Mid East (DE, DC, MD, NJ, NY, PA), 3	Great Lakes (IL, IN, MI, OH, WI),4	Plains (IA, KS, MN, MO, NE, ND, SD), 5	Southeast (AL, AR, FL, GA, KY, LA, MS, NC, SC, TN, VA, WV), 6	Southwest (AZ, NM, OK, TX), 7	Rocky Mountains (CO, ID, MT, UT, WY), 8	Far West (AK, CA, HI, NV, OR, WA), 9	Outlying Areas (AS, FM, GU, MH, MP, PR, PW, VI). Our graph is not showing region 0 because there is one university that is under region 0 and it did not have a value for 3 Year Repayment Rate On barplot it shows that region 1 and 2 have highest repayment rate(0.73 and 0.68, respectively) and region 5 and 6 have lowest repayment rate (0.54)
 \end{figure}
 
-
+  
 \begin{figure}[H]
-  \centering
   \caption{Barplot of Mean 3 Year Repayment Rate on Control Levels and Distributions of 3 Year Repayment Rate for Control Level}
+  \centering
   \includegraphics[width=0.6\textwidth]{../images/eda/rpy3yr_control_barplot_histogram.png}
   \centering
   \newline
@@ -172,9 +172,11 @@ library(xtable)
 load('../data/RData/tsa_data.RData')
 tops <- xtable(top_100[1:10,], caption = 'Top 10 Schools')
 print(tops, comment = FALSE, table.placement = 'H', type = 'latex', caption.placement = 'top')
+cutoff <- top_100[nrow(top_100),2]
+school_100th <- top_100[nrow(top_100),1]
 @
 
-Notice the first school on the list has the average forecasted repayment rate above 1, which is impossible. This can be explained by the insufficient data availability\section{Conclusions}
+Notice the first school on the list has the average forecasted repayment of 1. This was fixed from its original value of 1.017357 since repayment rate cannot exceed 1. Such anomaly can be explained by the insufficient data availability for each school. According to the time series analysis, the cutoff for the projected repayment rate top 100 schools was \Sexpr{cutoff}, and the school name is \Sexpr{school_100th}.\section{Conclusions}
 
 
 \end{document}

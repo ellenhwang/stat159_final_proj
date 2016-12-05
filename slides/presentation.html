@@ -119,97 +119,27 @@
 
 </article></slide><slide class=''><hgroup><h2>Methods</h2></hgroup><article  id="methods-1">
 
-<table class = 'rmdtable'>
-<caption>Variables with Greater than .5 Correlation with Repayment Rate</caption>
-<tr class="header">
-<th align="center">Variable</th>
-<th align="center">Correlation.Value</th>
-</tr>
-<tr class="odd">
-<td align="center">INC_PCT_H1</td>
-<td align="center">0.8199356</td>
-</tr>
-<tr class="even">
-<td align="center">INC_PCT_H2</td>
-<td align="center">0.7632993</td>
-</tr>
-<tr class="odd">
-<td align="center">INC_PCT_M2</td>
-<td align="center">0.7621072</td>
-</tr>
-<tr class="even">
-<td align="center">C200_4_POOLED_SUPP</td>
-<td align="center">0.7187762</td>
-</tr>
-<tr class="odd">
-<td align="center">MN_EARN_WNE_INC1_P6</td>
-<td align="center">0.6536315</td>
-</tr>
-<tr class="even">
-<td align="center">C150_4_POOLED_SUPP</td>
-<td align="center">0.6486077</td>
-</tr>
-<tr class="odd">
-<td align="center">PCT25_EARN_WNE_P6</td>
-<td align="center">0.6477948</td>
-</tr>
-<tr class="even">
-<td align="center">PCT10_EARN_WNE_P6</td>
-<td align="center">0.6455511</td>
-</tr>
-<tr class="odd">
-<td align="center">GT_25K_P6</td>
-<td align="center">0.6366590</td>
-</tr>
-<tr class="even">
-<td align="center">C150_4</td>
-<td align="center">0.6157837</td>
-</tr>
-<tr class="odd">
-<td align="center">MD_EARN_WNE_P6</td>
-<td align="center">0.6090432</td>
-</tr>
-<tr class="even">
-<td align="center">NPT4_75UP_PUB</td>
-<td align="center">0.6071970</td>
-</tr>
-<tr class="odd">
-<td align="center">MN_EARN_WNE_P6</td>
-<td align="center">0.5873559</td>
-</tr>
-<tr class="even">
-<td align="center">TUITIONFEE_OUT</td>
-<td align="center">0.5822690</td>
-</tr>
-<tr class="odd">
-<td align="center">PCT75_EARN_WNE_P6</td>
-<td align="center">0.5741866</td>
-</tr>
-<tr class="even">
-<td align="center">C150_4_WHITE</td>
-<td align="center">0.5670161</td>
-</tr>
-<tr class="odd">
-<td align="center">NPT4_PUB</td>
-<td align="center">0.5605026</td>
-</tr>
-<tr class="even">
-<td align="center">C100_4</td>
-<td align="center">0.5570321</td>
-</tr>
-<tr class="odd">
-<td align="center">PAR_ED_PCT_1STGEN</td>
-<td align="center">-0.7109037</td>
-</tr>
-<tr class="even">
-<td align="center">CDR3</td>
-<td align="center">-0.7504315</td>
-</tr>
-<tr class="odd">
-<td align="center">INC_PCT_LO</td>
-<td align="center">-0.8346927</td>
-</tr>
-</table>
+<p>Response Variable: 3 Year Repayment Rate</p>
+
+<ol>
+<li>Data Cleaning:</li>
+</ol>
+
+<ul>
+<li>Remove all columns with at at most 50% NULL</li>
+<li>replace remaining NULL columns with column means</li>
+<li>replacing PrivacySuppressed columns with NULL</li>
+</ul>
+
+<ol>
+<li>Variable Selection:</li>
+</ol>
+
+<ul>
+<li>Manually organize remaining columns by category to pick out variables relevant to research question</li>
+<li>Run correlation matrix on variables and select those with at least absolute value of .5 correlation to 3 year repayment rate</li>
+<li>Run basic OLS regression to narrow down the statistically significant variables</li>
+</ul>
 
 </article></slide><slide class='segue dark nobackground'><hgroup class = 'auto-fadein'><h2>Results</h2></hgroup><article  id="results">
 

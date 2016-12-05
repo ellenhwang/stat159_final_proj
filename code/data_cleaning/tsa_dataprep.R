@@ -11,11 +11,6 @@ clean_data_all <- function(clean_data) {
   return(clean_data)
 }
 
-drop_schools = function(df_to_fix, ref_df) {
-  df_to_fix = df_to_fix[-which(df_to_fix[,tail(df_tofix, 1)] == ref_df[,tail(ref_df, 1)]),]
-  return(df_to_fix)
-}
-
 # Import data
 keep_cr = c("UNITID", "INSTNM", "RPY_3YR_RT")
 m1 = clean_data_all(read.csv("../../data/raw_data/MERGED2009_10_PP.csv", stringsAsFactors = FALSE)[,keep_cr])
