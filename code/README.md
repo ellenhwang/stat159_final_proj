@@ -34,8 +34,8 @@ Code files:
 	session.sh: bash script file generating session_info.txt
 	functions.R: file containing a funciton removing "PrivacySuppressed" and "NULL" of the Data to NA
 	data_cleaning_script.R: a script that writes: rpy3yr_train.csv, rpy3yr_test.csv, rpy3yr_tbl.csv, cdr3_train.csv, cdr3_test.csv, cdr3_tbl.csv, clean_data.csv, cdr3_x.csv, cdr3_y.csv, cdr3_test_x.csv, cdr3_test_y.csv, cdr3_train_x.csv, cdr3_train_y.csv,	rpy3yr_x.csv, rpy3yr_y.csv, rpy3yr_test_x.csv, rpy3yr_test_y.csv, rpy3yr_train_x.csv, and rpy3yr_train_y.csv
-	tsa.R:
-	tsa_dataprep.R
+	tsa.R: tsa.R file reads in ts_to_use.RData file and conducts time series analysis on all the schools included in rpy_allyr data set. It is set to produce a data set, rpy_upto_2017, which includes 6 years of 3 year repayment rate data and the three year projected repayment rates. This file writes out rpy_upto_2017 and top_100 files as tsa_data.RData.
+	tsa_dataprep.R: tsa_dataprep.R file reads in the raw data from MERGED2009_10_PP.csv to MERGED2014_15_PP.csv, filters cleans data and drop schools if they are not included in any of the data set at least once. Eventually it writes rpy_allyr data set which consists of INSTNM, UNITID, 2009, 2010, 2011, 2012, 2013, 2014 as its columns. It writes ts_data.csv and ts_to_use.RData files (ts_to_use.RData file is created for users to use the data set more easily).
 ```
 
 ```
