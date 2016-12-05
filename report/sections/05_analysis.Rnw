@@ -2,7 +2,7 @@
 
 Since repayment rate for each school is already available, there was no need for any prediction for it. However, since we are to provide advice to our client, a credit institution that provides financial aid to students, we thought it proper to conduct \emph{time series analysis} on all the schools with repayment rate of 3 years available to understand their future repayment rate. Unfortunately, not many years of data was available; however, we were able to observe repayment rate of 3 years of data starting from 2009. Notice that since there are only 6 years of data available for each school, the time series analysis on each school is merely a way of understanding the trend of each school within those 6 years.
 
-With time series forecast of three years on each school, we were able to pick 'Top 100 Schools' according to their mean future 3-year repayment rates.
+With time series forecast of three years on each school, we were able to pick 'Top 100 Schools' according to their mean future 3-year repayment rates. Below is the table of the top ten schools with the best projected repayment rates.
 
 <<echo=FALSE, results = 'asis'>>=
 library(xtable)
@@ -10,3 +10,4 @@ load('../data/RData/tsa_data.RData')
 tops <- xtable(top_100[1:10,], caption = 'Top 10 Schools')
 print(tops, comment = FALSE, table.placement = 'H', type = 'latex', caption.placement = 'top')
 @
+

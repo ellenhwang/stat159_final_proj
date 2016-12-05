@@ -3,6 +3,7 @@
 The data that we use for the analysis contains 7703 universitites under 1743 different categories. (python?)In order to analyze the data more efficiently, our team decided to remove all the columns that doesn't have sufficient data; we considered the columns as insufficient if 95 percent or more of the column values are NA. After this process, we decreased the number of the columns to about 500. After the first round of cleaning, the team went through all the columns by each category that are related to client's profile. List of the variables can be found under data_cealing_script.R file. After we obtained specific list of column names, we converted all the NULL values and PrivacySuppressed to NA. After removing Null and PrivacySuppressed values, we performed correlation matrices to see which predictors have high correlation between 3yr repayment rate. Since all of the repayment rate has high correlation with 3yr repayment rate, we took out rest of the repayment rate columns and picked variables that has higher absolute value of 0.5 correlation coefficient. With specified variables, we ran basic ols regression to see which variables to and which to clean out(we are not using them tho).
 
 <<mse, echo=FALSE, results='asis'>>=
+library(xtable)
 load('../data/RData/ols.RData')
 load('../data/RData/lasso.RData')
 load('../data/RData/ridge.RData')
