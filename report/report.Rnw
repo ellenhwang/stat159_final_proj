@@ -35,7 +35,30 @@ For our project, besides the main data, our team also used featured downloads pr
 
 There is also a documentation that provides more on how to use the data, including: Sources of the data, The construction of metrics, and Data considerations and limitations available at: \url{https://collegescorecard.ed.gov/data/documentation/}
 
-\section{Methods}\section{Results}
+\section{Methods}
+
+The data that we use for the analysis contains 7703 universitites under 1743 different categories. (python?)In order to analyze the data more efficiently, our team decided to remove all the columns that doesn't have sufficient data; we considered the columns as insufficient if 95 percent or more of the column values are NA. After this process, we decreased the number of the columns to about 500. After the first round of cleaning, the team went through all the columns by each category that are related to client's profile. List of the variables can be found under data\_cleaning\_script.R file. After we obtained specific list of column names, we converted all the NULL values and PrivacySuppressed to NA. After removing Null and PrivacySuppressed values, we performed correlation matrices to see which predictors have high correlation between 3yr repayment rate. Since all of the repayment rate has high correlation with 3yr repayment rate, we took out rest of the repayment rate columns and picked variables that has higher absolute value of 0.5 correlation coefficient. With specified variables, we ran basic ols regression to see which variables to and which to clean out(we are not using them tho).
+
+<<mse, echo=FALSE, results='asis'>>=
+library(xtable)
+load('../data/RData/ols.RData')
+load('../data/RData/lasso.RData')
+load('../data/RData/ridge.RData')
+load('../data/RData/pcr.RData')
+load('../data/RData/plsr.RData')
+mse <- data.frame(rpy_3yr_regsum$sigma, rpy3yr_lasso_test_mse, rpy3yr_ridge_test_mse,
+                  rpy_pcr_test_mse, rpy_pls_test_mse)
+colnames(mse) <- c("OLS", "Lasso", "Ridge", "PCR", "PLSR")
+mse_table <- xtable(mse, caption = "MSE of regressions", digits=c(0,5,5,5,5,5))
+print(mse_table, comment = FALSE, table.placement = 'H', type = 'latex', caption.placement = 'top')
+@
+
+<<coef, eche=FALSE, results='asis'>>=
+ridge_coef <- xtable(as.data.frame(rpy3yr_rr_coef[-1,]), caption = 'Ridge Coefficients', digits = c(0,7))
+print(ridge_coef, comment = FALSE, table.placement = 'H', type = 'latex', caption.placement = 'top')
+@
+
+After ols, we removed variables with greater than 0.05 pvalue produced clean data as csv file under clean\_data folder.\section{Results}
 
 \subsection{Correlation and Regession Results to find Relevant Variables}
 WRITE SOMETHING ABOUT USING REGRESSIONS TO SELECT VARIABLES 
@@ -125,12 +148,24 @@ This figure displays a barplot that shows average value of 3 Year Repayment Rate
   \newline
   
   \raggedright
-This figure is a barplot that shows average value of 3 Year Repayment Rate for each level of institution. Uncer ICLEVEL, each school is divided into three categories: 1 = 4-year,2 = 2-year, 3 = Less-than-2-year. It shows that 4-year institution has the highest average repayment rate with 0.69. On the right side of the barplot, there is a histogram/desnity plot of each institution's repayment rate for detailed analysis.
+This figure is a barplot that shows average value of 3 Year Repayment Rate for each level of institution. Uncer ICLEVEL, each school is divided into three categories: 1 = 4-year,2 = 2-year, 3 = Less-than-2-year. It shows that 4-year institution has the highest average repayment rate with 0.69. On the right side of the barplot, there is a histogram/density plot of each institution's repayment rate for detailed analysis.
 \end{figure}
 
+<<echo=FALSE, results = 'asis', message = FALSE>>=
+library(xtable)
 
+load("../data/RData/ols.RData")
+load("../data/RData/ridge.RData")
+load("../data/RData/lasso.RData")
+load("../data/RData/pcr.RData")
+load("../data/RData/plsr.RData")
 
+@
 \section{Analysis}
+
+Since repayment rate for each school is already available in our data set, there did not exist any need for prediction. However, since we are to provide advice to our client, a credit institution that provides financial aid to students, we thought it proper to conduct \emph{time series analysis} on all the schools with repayment rate of 3 years available to understand their future repayment rate. Unfortunately, not many years of data was available; however, we were able to observe repayment rate of 3 years of data starting from 2009. Notice that since there is only 6 years of data available for each school, the time series analysis on each school is mostly a way of understanding the trend of each school within those 6 years.
+
+With time series forecast of three years on each school, we were able to pick 'Top 100 Schools' according to their mean future 3-year repayment rates. Below is the table of the top ten schools with the best projected repayment rates.
 
 <<echo=FALSE, results = 'asis'>>=
 library(xtable)
@@ -138,7 +173,8 @@ load('../data/RData/tsa_data.RData')
 tops <- xtable(top_100[1:10,], caption = 'Top 10 Schools')
 print(tops, comment = FALSE, table.placement = 'H', type = 'latex', caption.placement = 'top')
 @
-\section{Conclusions}
+
+Notice the first school on the list has the average forecasted repayment rate above 1, which is impossible. This can be explained by the insufficient data availability\section{Conclusions}
 
 
 \end{document}
