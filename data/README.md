@@ -5,8 +5,27 @@ Directory tree:
 data/
 	README.md
 	raw_data/
-		MERGED2014_15_PP.csv #have unzip code for 
+		MERGED1996_97_PP.csv
+		MERGED1997_98_PP.csv
+		MERGED1998_99_PP.csv
+		MERGED1999_00_PP.csv
+		MERGED2000_01_PP.csv
+		MERGED2001_02_PP.csv
+		MERGED2002_03_PP.csv
+		MERGED2003_04_PP.csv
+		MERGED2004_05_PP.csv
+		MERGED2005_06_PP.csv
+		MERGED2006_07_PP.csv
+		MERGED2007_08_PP.csv
+		MERGED2008_09_PP.csv
+		MERGED2009_10_PP.csv
+		MERGED2010_11_PP.csv
+		MERGED2011_12_PP.csv
+		MERGED2012_13_PP.csv
+		MERGED2013_14_PP.csv
+		MERGED2014_15_PP.csv
 		income.csv
+		non_null_cols.csv
 	cleaned_data/
 		clean_data.csv
 		cdr3_tbl.csv
@@ -62,10 +81,32 @@ csv files:
 	cdr3_train.csv: train data set for cdr3 
 	cdr3_test.csv: test data set for cdr3
 	cdr3_tbl.csv: data set for cdr3
-	income.csv: raw data set for post-earnings
-	MERGED2014_15_PP.csv: raw data set
 	ts_data.csv: Prepped data for time series analysis (rpy_allyr). Columns: Institution Names, UNITID, RPY3YR data from 2009 to 2014
+```
 
+Raw Data Set
+```
+	income.csv: raw data set for post-earnings
+	MERGED1996_97_PP.csv
+	MERGED1997_98_PP.csv
+	MERGED1998_99_PP.csv
+	MERGED1999_00_PP.csv
+	MERGED2000_01_PP.csv
+	MERGED2001_02_PP.csv
+	MERGED2002_03_PP.csv
+	MERGED2003_04_PP.csv
+	MERGED2004_05_PP.csv
+	MERGED2005_06_PP.csv
+	MERGED2006_07_PP.csv
+	MERGED2007_08_PP.csv
+	MERGED2008_09_PP.csv
+	MERGED2009_10_PP.csv
+	MERGED2010_11_PP.csv
+	MERGED2011_12_PP.csv
+	MERGED2012_13_PP.csv
+	MERGED2013_14_PP.csv: 
+	MERGED2014_15_PP.csv: raw data set 
+	non_null_cols.csv: csv file with 99% NULL columns removed
 
 ```
 

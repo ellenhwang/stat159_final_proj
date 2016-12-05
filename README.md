@@ -67,6 +67,9 @@ stat159_final_proj/
 			tsa.R
 		functions/
 			functions.R
+		tests/
+			test_cleaning.R
+		test_that.R
 
 	shiny_app/
 		README.md
@@ -176,6 +179,8 @@ stat159_final_proj/
 
 15. clean: 
 		rm -f report/report.pdf report/report.Rnw
+16. tests:
+		Rscript code/test_that.R
 
 ## License
 
