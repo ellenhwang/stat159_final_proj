@@ -70,7 +70,7 @@ This figure displays three different scatterplots of Tuition fee vs Repayment Ra
   \newline
   
   \raggedright
-The figure aboce is a scatterplot of 3 Year Repayment Rate vs average net price for public institutions and below, it has a scatterplot of 3 Year Repayment Rate vs average net price for private instutitions. It shows higher slope for public institution but for both graph, it shows weak relationship between the average net price and repayment rate. 
+The figure above is a scatterplot of 3 Year Repayment Rate vs average net price for public institutions and below, it has a scatterplot of 3 Year Repayment Rate vs average net price for private instutitions. It shows higher slope for public institution but for both graph, it shows weak relationship between the average net price and repayment rate. 
 \end{figure}
 
 
@@ -82,7 +82,7 @@ The figure aboce is a scatterplot of 3 Year Repayment Rate vs average net price 
   \newline
   
   \raggedright
-The figure aboce is a scatterplot of 3 Year Repayment Rate vs percent of students who received federal student loans. By looking the graph, it shows that there is weak relationship between percent of students who recieved federal student loans and 3yr repayment rate.
+The figure above is a scatterplot of 3 Year Repayment Rate vs percent of students who received federal student loans. By looking the graph, it shows that there is weak relationship between percent of students who recieved federal student loans and 3yr repayment rate.
 \end{figure}
 
 
