@@ -1,1 +1,8 @@
 \section{Analysis}
+
+<<echo=FALSE, results = 'asis'>>=
+library(xtable)
+load('../data/RData/tsa_data.RData')
+tops <- xtable(top_100[1:10,], caption = 'Top 10 Schools')
+print(tops, comment = FALSE, table.placement = 'H', type = 'latex', caption.placement = 'top')
+@

@@ -1,3 +1,7 @@
+.PHONY = all data cleaning eda report ols ridge lasso pslr pcr tsa clean
+
+all: data cleaning regressions report slides session
+
 # Section Names
 Rnws = $(wildcard report/sections/*.Rnw) 
 report = report
@@ -5,22 +9,22 @@ report = report
 # url of data
 url_income = https://ed-public-download.apps.cloud.gov/downloads/Most-Recent-Cohorts-Treasury-Elements.csv
 
-.PHONY = all data cleaning eda report ols ridge lasso pslr pcr tsa clean
+data: data/raw_data/CollegeScorecard_Raw_Data.zip
 
-data: 
-	wget “https://ed-public-download.apps.cloud.gov/downloads/CollegeScorecard_Raw_Data.zip”; unzip
+data/raw_data/CollegeScorecard_Raw_Data.zip:
+	cd data/raw_data; wget https://ed-public-download.apps.cloud.gov/downloads/CollegeScorecard_Raw_Data.zip; unzip CollegeScorecard_Raw_Data.zip
+	cd data/raw_data; curl $(url_income) > income.csv
 	
-
-data/raw_data/income.csv: 
-	curl $(url_income) > $@
-
-cleaning:
+cleaning: 
 	cd code/data_cleaning; Rscript data_cleaning_script.R
 	cd code/data_cleaning; Rscript tsa_dataprep.R
 
 
+eda: code/eda_script.R
+	cd code; Rscript eda_script.R
+
 #regression targets 
-ols: 
+ols: code/data_cleaning/data_cleaning_script.R
 	cd code/regression_scripts; Rscript $@.R
 
 ridge: code/data_cleaning/data_cleaning_script.R
@@ -36,10 +40,7 @@ plsr: code/data_cleaning/data_cleaning_script.R
 	cd code/regression_scripts/; Rscript $@.R
 
 tsa: code/data_cleaning/tsa_dataprep.R
-	cd code/regression_scripts; Rscript $@.R
-
-eda: code/eda_script.R
-	cd code; Rscript eda_script.R
+	cd code/regression_scripts; Rscript $@.R; rm Rplots.pdf
 
 
 #running regression targets at once
@@ -49,14 +50,14 @@ regressions:
 	make lasso
 	make pcr
 	make plsr
-	make tsa
 
 
 #First generating compiled Rnw files and then generate pdf version of Rnw
 	
 report: $(Rnws)
 	cat $(Rnws) > report/report.Rnw #Automatic variable: the first target
-	cd report; pdflatex report.Rnw; rm report.aux report.out report.log
+	cd report; Rscript -e "library(knitr); knit2pdf('report.Rnw', output = 'report.tex')"
+	cd report; rm report.aux report.log report.out report.tex
 
 #creating slides in html file based on Rmd file
 slides: slides/presentation.html
