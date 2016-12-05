@@ -139,10 +139,12 @@ cor_cdr3 <- cor_cdr3[names(cor_cdr3)[-rpy_vars]]
 
 # variables with above .5 correlation with specified response (in descending order)
 high_cor_rpy3yr <- sort(cor_rpy3yr[abs(cor_rpy3yr) > .5],decreasing = T)
+high_cor_cdr3 <- sort(cor_cdr3[abs(cor_cdr3) > .5],decreasing = T)
 
 # 3 Yr Repayment Rates & CDR3 tables
 rpy3yr_tbl <- clean_data[,c('RPY_3YR_RT', names(high_cor_rpy3yr))]
 cdr3_tbl <- clean_data[,c('CDR3', names(high_cor_cdr3))]
+cdr3_tbl$CDR3.1 <- NULL
 
 # Basic OLS regression to see what variables to clean
 rpy3yr_reg <- lm(RPY_3YR_RT ~ ., data = rpy3yr_tbl)

@@ -9,13 +9,16 @@ report = report
 # url of data
 url_income = https://ed-public-download.apps.cloud.gov/downloads/Most-Recent-Cohorts-Treasury-Elements.csv
 
-data: data/raw_data/CollegeScorecard_Raw_Data.zip
+data: data/raw_data/non_null_cols.csv
+
+data/raw_data/non_null_cols.csv: data/raw_data/CollegeScorecard_Raw_Data.zip
+	cd code/data_cleaning; Rscript remove_null_columns.R
 
 data/raw_data/CollegeScorecard_Raw_Data.zip:
 	cd data/raw_data; wget https://ed-public-download.apps.cloud.gov/downloads/CollegeScorecard_Raw_Data.zip; unzip CollegeScorecard_Raw_Data.zip
 	cd data/raw_data; curl $(url_income) > income.csv
 
-cleaning:
+cleaning: data
 	cd code/data_cleaning; Rscript data_cleaning_script.R
 	cd code/data_cleaning; Rscript tsa_dataprep.R
 
