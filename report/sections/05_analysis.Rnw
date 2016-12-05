@@ -11,4 +11,4 @@ tops <- xtable(top_100[1:10,], caption = 'Top 10 Schools')
 print(tops, comment = FALSE, table.placement = 'H', type = 'latex', caption.placement = 'top')
 @
 
-Notice the first school on the list has the average forecasted repayment rate above 1, which is impossible. This can be explained by the insufficient data availability
+Notice the first school on the list has the average forecasted repayment rate above 1, which is impossible. This can be explained by the insufficient data availability for each schools.
