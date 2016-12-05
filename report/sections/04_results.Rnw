@@ -5,9 +5,10 @@ WRITE SOMETHING ABOUT USING REGRESSIONS TO SELECT VARIABLES
 
 
 \subsection{Exploratory Data Analysis}
-After using correlation and regression to select features related to repayment, we were able to perform some exploratory data analysis. 
+After using correlation and regression to select features related to repayment, we were able to perform some exploratory data analysis. We have listed some important visualizations on an \href{https://wos-159.shinyapps.io/shiny-app/}{online Shiny interface} and below.
 
-\begin{figure}
+
+\begin{figure}[H]
   \caption{Scatter Plot of Completion Rate vs. 3 Year Repayment Rate}
   \centering
   \includegraphics[width=0.6\textwidth]{../images/eda/complrt_rpy3yr_scatter.png}
@@ -17,10 +18,9 @@ After using correlation and regression to select features related to repayment, 
   \raggedright
 From the graph, we can see that schools with repayment rates below 75\% tend to have completion rates below 50\%. There is also a very steep trend for completion rate for repayment rates above 75\%. 
 \end{figure}
- 
 
 
-\begin{figure}
+\begin{figure}[H]
   \caption{Scatter Plot of Different Tuition Types on 3 Year Repayment Rate}
   \centering
   \includegraphics[width=0.6\textwidth]{../images/eda/rpy3yr_tuition_scatter.png}
@@ -32,7 +32,7 @@ This figure displays three different scatterplots of Tuition fee vs Repayment Ra
 \end{figure}
 
 
-\begin{figure}
+\begin{figure}[H]
   \caption{Scatter Plot of 3 Year Repayment Rates on Type of Institution}
   \centering
   \includegraphics[width=0.6\textwidth]{../images/eda/netprice_pub_priv_rpy3yr_scatter}
@@ -44,7 +44,7 @@ The figure aboce is a scatterplot of 3 Year Repayment Rate vs average net price 
 \end{figure}
 
 
-\begin{figure}
+\begin{figure}[H]
   \caption{Scatter Plot of Repayment Rates on Type of Institution}
   \centering
   \includegraphics[width=0.6\textwidth]{../images/eda/pctfloan_rpy3yr_scatter}
@@ -56,7 +56,7 @@ The figure aboce is a scatterplot of 3 Year Repayment Rate vs percent of student
 \end{figure}
 
 
-\begin{figure}
+\begin{figure}[H]
   \caption{Barplot of Mean 3 Year Repayment Rate on REGION Levels}
   \centering
   \includegraphics[width=0.6\textwidth]{../images/eda/rpy_region_barplot.png}
@@ -68,7 +68,7 @@ This figure displays a barplot of average value of 3 Year Repayment Rate for eac
 \end{figure}
 
 
-\begin{figure}
+\begin{figure}[H]
   \centering
   \caption{Barplot of Mean 3 Year Repayment Rate on Control Levels and Distributions of 3 Year Repayment Rate for Control Level}
   \includegraphics[width=0.6\textwidth]{../images/eda/rpy3yr_control_barplot_histogram.png}
@@ -80,7 +80,7 @@ This figure displays a barplot that shows average value of 3 Year Repayment Rate
 \end{figure}
 
 
-\begin{figure}
+\begin{figure}[H]
   \caption{Barplot of Mean 3 Year Repayment Rate on ICLEVEL Levels and Distributions of 3 Year Repayment Rate for each ICLEVEL Level}
   \centering
   \includegraphics[width=0.6\textwidth]{../images/eda/iclevel_rpy3yr_barplot_histogram.png}
