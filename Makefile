@@ -5,7 +5,7 @@ report = report
 # url of data
 url_income = https://ed-public-download.apps.cloud.gov/downloads/Most-Recent-Cohorts-Treasury-Elements.csv
 
-.PHONY = all data cleaning eda report ols ridge lasso pslr pcr tsa
+.PHONY = all data cleaning eda report ols ridge lasso pslr pcr tsa clean
 
 data: 
 	wget “https://ed-public-download.apps.cloud.gov/downloads/CollegeScorecard_Raw_Data.zip”; unzip
