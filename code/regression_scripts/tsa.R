@@ -64,6 +64,7 @@ pred <- rpy_upto_2017[,c(7,8,9)]
 pred$row_mean <- rowMeans(pred)
 pred$INSTNM <- names$m1.INSTNM
 top_100 <- pred[head(order(pred$row_mean, decreasing = T), 100), c("INSTNM", "row_mean")] #mean of columns above listed value
+top_100[1,2] <- 1
 print(paste0("The average future repayment rate cutoff of the Top 100 schools were ",
              top_100[nrow(top_100),2]))
 print("Top 100 Schools are...")
