@@ -70,7 +70,16 @@ stat159_final_proj/
 
 	shiny_app/
 		README.md
-		shiny_app.R
+		app.R
+		data/
+			clean_data.csv
+		rsconnect/
+			shinyapps.io/
+				wos_159/
+					shiny_app.dcf
+		server.R
+		setup.R
+		ui.R
 
 	report/
 		README.md
