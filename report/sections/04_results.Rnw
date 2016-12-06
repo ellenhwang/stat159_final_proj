@@ -2,7 +2,7 @@
 
 \subsection{Correlation and Regession Results to find Relevant Variables}
 <<load_data, echo=FALSE>>=
-library(xtable)
+suppressWarnings(library(xtable))
 load('../data/RData/ols.RData')
 load('../data/RData/lasso.RData')
 load('../data/RData/ridge.RData')
