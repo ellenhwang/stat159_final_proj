@@ -31,9 +31,10 @@ Our client, a credit institution that provides financial aid to students, want t
 
 The data from College Scorecard provide insights into the performance of schools eligible to receive federal financial aid, and offer a look at the outcomes of students at those schools. The Data that appear on the College Scorecard provides data on student completion, debt and repayment, earnings, and more. The files include data from 1996 through 2016 for all undergraduate degree-granting institutions of higher education. This data was last updated on September 13th, 2016. The data is available at: \url{https://collegescorecard.ed.gov/data/}
 
-For our project, besides the main data, our team also used featured downloads provided by College Scorecard. These data downloads provide quick access to some of the data in which users may be most interested, including a file that offers the most current data for each element. Among variety of data, we used [Post-School earnings](https://ed-public-download.apps.cloud.gov/downloads/Most-Recent-Cohorts-Treasury-Elements.csv) to narrow down the analytical component.
+For our project, besides the main data, our team also used featured downloads provided by College Scorecard. These data downloads provide quick access to some of the data in which users may be most interested, including a file that offers the most current data for each element. Among variety of data, we used Post-School earnings data set (\url{https://ed-public-download.apps.cloud.gov/downloads/Most-Recent-Cohorts-Treasury-Elements.csv}) to narrow down the analytical component.
 
 There is also a documentation that provides more on how to use the data, including: Sources of the data, The construction of metrics, and Data considerations and limitations available at: \url{https://collegescorecard.ed.gov/data/documentation/}
+
 
 \section{Methods}
 
@@ -44,7 +45,7 @@ After ols, we removed variables with greater than 0.05 pvalue produced clean dat
 
 \subsection{Correlation and Regession Results to find Relevant Variables}
 <<load_data, echo=FALSE>>=
-library(xtable)
+suppressWarnings(library(xtable))
 load('../data/RData/ols.RData')
 load('../data/RData/lasso.RData')
 load('../data/RData/ridge.RData')
@@ -173,7 +174,7 @@ This figure is a barplot that shows average value of 3 Year Repayment Rate for e
 \end{figure}
 \section{Analysis}
 
-Since the repayment rate for each school is already available in our data set, prediction using regression models was unnecessary. However, since we are to provide advice to our client, a credit institution that provides financial aid to students, we thought it proper to conduct \emph{time series analysis} on all the schools with repayment rate of 3 years available to understand their future repayment rates. Unfortunately, not many years of data files were available as most of earlier data files did not have any data for repayment rates; however, we were able to observe repayment rate of 3 years of data starting from 2009. Notice that since there is only 6 years of data available for each school, the time series analysis on each school is mostly a way of understanding the trend of each school within those 6 years.
+In order to provide advice on future strategies to our client, we thought it proper to conduct \emph{time series analysis} on all the schools with repayment rate of 3 years available to understand their future repayment rates. Unfortunately, not many years of data files were available as most of earlier data files did not have any data for repayment rates; however, we were able to observe repayment rate of 3 years of data starting from 2009. Notice that since there is only 6 years of data available for each school, the time series analysis on each school is mostly a way of understanding the trend of each school within those 6 years.
 
 With the time series forecast of three years on each school, we were able to pick 'Top 100 Schools' according to their mean future 3-year repayment rates. Below is the table of the top ten schools with the best projected repayment rates.
 
@@ -186,7 +187,13 @@ cutoff <- top_100[nrow(top_100),2]
 school_100th <- top_100[nrow(top_100),1]
 @
 
-Notice the first school on the list has the average forecasted repayment of 1. This was fixed from its original value of 1.017357 since repayment rate cannot exceed 1. Such anomaly can be explained by the insufficient data availability for each school. According to the time series analysis, the cutoff for the projected repayment rate top 100 schools was \Sexpr{cutoff}, and the school name is \Sexpr{school_100th}.\section{Conclusions}
+Notice the first school on the list has the average forecasted repayment of 1. This was fixed from its original value of 1.017357 since repayment rate cannot exceed 1. Such anomaly can be explained by the insufficient data availability for each school. According to the time series analysis, the cutoff for the projected repayment rate top 100 schools was \Sexpr{cutoff}, and the school name is \Sexpr{school_100th}.
+\section{Conclusions}
 
+In this report, we analyzed how repayment rates on federal student loans varied as a result of several factors. We analyzed how federal student loan repayment rates vary between public and private schools, between regions, and between colleges with differing tuition costs and completion rates. In addition, we used regression and time series analysis to predict which colleges will likely have high private loan repayment rates, and which colleges have an upward trend in repayment rates - information valuable to a customer such as ours.
+
+Our regressions indicated that our client should pay closest attention to student completion rates, as these were the best predictor of repayment on federal loans for both four-year and less-than-four-year institutions. In addition, our regression analysis showed certain features of postgraduate income to be a good predictor of repayment. Specifically, while average postgraduate income was a poor predictor of repayment rates, we found that the share of students earning over \$25000 per year was a good predictor of repayment. From this information, it is reasonable to conclude that students earning over a certain cost-of-living threshold will be much more likely to pay back their loans than students making less, but that loan repayment rates are somewhat steady above a certain threshold. While we do not have the student-by-student data to verify this, we can recommend that our client focus not on average postgraduate income but on the percentage of graduates making above a \"Living Wage\".
+
+Finally, we performed time series analysis to determine which schools are likely to have the highest future repayment rates, based on their past and current rates over six years. We created a list of top 100 colleges by predicted future repayment rates - our client can use this list to identify schools that are likely to well better in the future, in order to shift their efforts to those schools.
 
 \end{document}

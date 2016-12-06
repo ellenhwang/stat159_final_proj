@@ -60,8 +60,10 @@ regressions:
 
 #First generating compiled Rnw files and then generate pdf version of Rnw
 
-report: $(Rnws)
+report: report/report.Rnw report/report.pdf
+report/report.Rnw: $(Rnws)
 	cat $(Rnws) > report/report.Rnw #Automatic variable: the first target
+report/report.pdf: report/report.Rnw
 	cd report; Rscript -e "library(knitr); knit2pdf('report.Rnw', output = 'report.tex')"
 	cd report; rm report.aux report.log report.out report.tex
 

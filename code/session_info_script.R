@@ -5,6 +5,7 @@ library(rmarkdown)
 library(xtable)
 library(ggplot2)
 library(pls)
+library(pander)
 library(glmnet)
 
 sink("../session_info.txt", append = TRUE)
