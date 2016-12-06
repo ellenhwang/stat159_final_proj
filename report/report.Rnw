@@ -57,8 +57,10 @@ Below is the table that contains predictors with absolute correlation value abov
 cor_tab <- xtable(high_cor_rpy3yr_tbl, caption='Predictors with high correlation', digits = c(0,0,5))
 print(cor_tab, comment = FALSE, table.placement = 'H', type = 'latex', caption.placement = 'top')
 @
-  
-Another measure that we employed in deciding predictors that explain our response variable well was running regression. In order to select the predictors and their coefficients that best account for the repayment rate, we ran Ordinary Least Squares, Lasso, Ridge, Principal Components, and Partial Least Squares regressions. From those five regressions, we compared the test mean-squared-error rates (MSE) of each regression. Below is the MSE table for all the regressions.
+
+Another measure that we employed in deciding predictors that explain our response variable well was running regression. We believe that the factors that act as good predictors of repayment rate on federal loans will also act as good predictors of repayment rates on loans given by our client. So, we create regression models that predict repayment rate of federal loans based on other public features from the scorecard data.
+
+In order to select the predictors and their coefficients that best account for the repayment rate, we ran Ordinary Least Squares, Lasso, Ridge, Principal Components, and Partial Least Squares regressions. From those five regressions, we compared the test mean-squared-error rates (MSE) of each regression. Below is the MSE table for all the regressions.
 <<mse, echo=FALSE, results='asis'>>=
 mse <- data.frame(rpy_3yr_regsum$sigma, rpy3yr_lasso_test_mse, rpy3yr_ridge_test_mse,
                   rpy_pcr_test_mse, rpy_pls_test_mse)
@@ -74,7 +76,7 @@ colnames(ridge_coef) <- "Coefficients"
 ridge_coef <- xtable(ridge_coef, caption = 'Ridge Coefficients', digits = c(0,7))
 print(ridge_coef, comment = FALSE, table.placement = 'H', type = 'latex', caption.placement = 'top')
 @
-According to the table above, our client should pay close attention to  \\
+According to the table above, our client should pay close attention to:  \\
 1. Percentages of aided students with family incomes between $48,001 - $75,000 in nominal dollars  \\
 2. 150 percent completion rate for less-than-four-year institutions, pooled in two-year rolling averages and suppressed for small n size  \\
 3. 10th percentile of earnings of students working and not enrolled 6 years after entry  \\
@@ -93,9 +95,9 @@ After using correlation and regression to select features related to repayment, 
   \includegraphics[width=0.6\textwidth]{../images/eda/complrt_rpy3yr_scatter.png}
   \centering
   \newline
-  
+
   \raggedright
-From the graph, we can see that schools with repayment rates below 75\% tend to have completion rates below 50\%. There is also a very steep trend for completion rate for repayment rates above 75\%. 
+From the graph, we can see that schools with repayment rates below 75\% tend to have completion rates below 50\%. There is also a very steep trend for completion rate for repayment rates above 75\%.
 \end{figure}
 
 
@@ -105,7 +107,7 @@ From the graph, we can see that schools with repayment rates below 75\% tend to 
   \includegraphics[width=0.6\textwidth]{../images/eda/rpy3yr_tuition_scatter.png}
   \centering
   \newline
-  
+
   \raggedright
 This figure displays three different scatterplots of Tuition fee vs Repayment Rate. In the data set, there are three different information of Tuition fee under cost category. First graph is a Net tuition revenue per full-time equivalent student vs repayment rate. Second graph is a In-stat tuition and fee vs repayment rate and last one is out-of-state tuition and fees vs repayment rate. There is highest correlation between out-of-state vs repayment rate.
 \end{figure}
@@ -117,9 +119,9 @@ This figure displays three different scatterplots of Tuition fee vs Repayment Ra
   \includegraphics[width=0.6\textwidth]{../images/eda/netprice_pub_priv_rpy3yr_scatter}
   \centering
   \newline
-  
+
   \raggedright
-The figure above is a scatterplot of 3 Year Repayment Rate vs average net price for public institutions and below, it has a scatterplot of 3 Year Repayment Rate vs average net price for private instutitions. It shows higher slope for public institution but for both graph, it shows weak relationship between the average net price and repayment rate. 
+The figure above is a scatterplot of 3 Year Repayment Rate vs average net price for public institutions and below, it has a scatterplot of 3 Year Repayment Rate vs average net price for private instutitions. It shows higher slope for public institution but for both graph, it shows weak relationship between the average net price and repayment rate.
 \end{figure}
 
 
@@ -129,7 +131,7 @@ The figure above is a scatterplot of 3 Year Repayment Rate vs average net price 
   \includegraphics[width=0.6\textwidth]{../images/eda/pctfloan_rpy3yr_scatter}
   \centering
   \newline
-  
+
   \raggedright
 The figure above is a scatterplot of 3 Year Repayment Rate vs percent of students who received federal student loans. By looking the graph, it shows that there is weak relationship between percent of students who recieved federal student loans and 3yr repayment rate.
 \end{figure}
@@ -141,19 +143,19 @@ The figure above is a scatterplot of 3 Year Repayment Rate vs percent of student
   \includegraphics[width=0.6\textwidth]{../images/eda/rpy_region_barplot.png}
   \centering
   \newline
-  
+
   \raggedright
 This figure displays a barplot of average value of 3 Year Repayment Rate for each region. 3 Year Repayment Rate is defined as a fraction of repayment cohort who are not in default, and with loan balances that have declined three years since entering repayment, excluding enrolled and military deferment from calculation. (rolling averages) and each university is divided into 9 regions: 0	U.S. Service Schools, 1New England (CT, ME, MA, NH, RI, VT), 2	Mid East (DE, DC, MD, NJ, NY, PA), 3	Great Lakes (IL, IN, MI, OH, WI),4	Plains (IA, KS, MN, MO, NE, ND, SD), 5	Southeast (AL, AR, FL, GA, KY, LA, MS, NC, SC, TN, VA, WV), 6	Southwest (AZ, NM, OK, TX), 7	Rocky Mountains (CO, ID, MT, UT, WY), 8	Far West (AK, CA, HI, NV, OR, WA), 9	Outlying Areas (AS, FM, GU, MH, MP, PR, PW, VI). Our graph is not showing region 0 because there is one university that is under region 0 and it did not have a value for 3 Year Repayment Rate On barplot it shows that region 1 and 2 have highest repayment rate(0.73 and 0.68, respectively) and region 5 and 6 have lowest repayment rate (0.54)
 \end{figure}
 
-  
+
 \begin{figure}[H]
   \caption{Barplot of Mean 3 Year Repayment Rate on Control Levels and Distributions of 3 Year Repayment Rate for Control Level}
   \centering
   \includegraphics[width=0.6\textwidth]{../images/eda/rpy3yr_control_barplot_histogram.png}
   \centering
   \newline
-  
+
   \raggedright
 This figure displays a barplot that shows average value of 3 Year Repayment Rate for each school type. Under Control column, each school is divided into three categories: 1 = Public, 2 = Private nonprofit, 3 = Private for-profit. It shows that Private for nonprofit universities has highest average repayment rate with 0.77. On the right side, histogram helps for the better understanding of barplot. The visualizations on the right shows density graph and histogram of each institution's repayment rate.
 \end{figure}
@@ -165,11 +167,10 @@ This figure displays a barplot that shows average value of 3 Year Repayment Rate
   \includegraphics[width=0.6\textwidth]{../images/eda/iclevel_rpy3yr_barplot_histogram.png}
   \centering
   \newline
-  
+
   \raggedright
 This figure is a barplot that shows average value of 3 Year Repayment Rate for each level of institution. Uncer ICLEVEL, each school is divided into three categories: 1 = 4-year,2 = 2-year, 3 = Less-than-2-year. It shows that 4-year institution has the highest average repayment rate with 0.69. On the right side of the barplot, there is a histogram/density plot of each institution's repayment rate for detailed analysis.
 \end{figure}
-
 \section{Analysis}
 
 Since the repayment rate for each school is already available in our data set, prediction using regression models was unnecessary. However, since we are to provide advice to our client, a credit institution that provides financial aid to students, we thought it proper to conduct \emph{time series analysis} on all the schools with repayment rate of 3 years available to understand their future repayment rates. Unfortunately, not many years of data files were available as most of earlier data files did not have any data for repayment rates; however, we were able to observe repayment rate of 3 years of data starting from 2009. Notice that since there is only 6 years of data available for each school, the time series analysis on each school is mostly a way of understanding the trend of each school within those 6 years.
