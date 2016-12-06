@@ -51,6 +51,42 @@ Response Variable: 3 Year Repayment Rate
 
 # Results
 
+## Regression Results
+**Test MSEs from OLS, Lasso, Ridge, PC, and PLS regressions**
+```{r echo=FALSE, results='asis'}
+library(xtable)
+load('../data/RData/ols.RData')
+load('../data/RData/lasso.RData')
+load('../data/RData/ridge.RData')
+load('../data/RData/pcr.RData')
+load('../data/RData/plsr.RData')
+mse <- data.frame(rpy_3yr_regsum$sigma, rpy3yr_lasso_test_mse, rpy3yr_ridge_test_mse,
+                  rpy_pcr_test_mse, rpy_pls_test_mse)
+colnames(mse) <- c("OLS", "Lasso", "Ridge", "PCR", "PLSR")
+mse_table <- xtable(mse, caption = "MSE of regressions", digits=c(0,5,5,5,5,5))
+print(mse_table, comment = FALSE, table.placement = 'H', type = 'html', caption.placement = 'top')
+```
+
+## Regression Results
+**Coefficient values from Ridge regression**
+```{r echo=FALSE, results='asis'}
+ridge_coef <- as.data.frame(rpy3yr_rr_coef[-1,])
+colnames(ridge_coef) <- "Coefficients"
+ridge_coef <- xtable(ridge_coef, caption = 'Ridge Coefficients', digits = c(0,7))
+print(ridge_coef, comment = FALSE, table.placement = 'H', type = 'html', caption.placement = 'top')
+```
+
+## Regression Results
+**Interpretation of Ridge regression coefficients**
+According to the table above, our client should pay close attention to:  \\
+1. Percentages of aided students with family incomes between $48,001 - $75,000 in nominal dollars  \\
+2. 150 percent completion rate for less-than-four-year institutions, pooled in two-year rolling averages and suppressed for small n size  \\
+3. 10th percentile of earnings of students working and not enrolled 6 years after entry  \\
+4. Share of students earning over 25,000 dollars per year (threshold earnings) 6 years after entry  \\
+5. Completion rate for first-time, full-time students at four-year institutions (150 percent of expected time to completion/6 years)  \\
+6. Average net price for family with more than 75,000-dollar income to pay for the education for public institution  \\
+7. Out-of-state tuition and fees  \\
+
 ## Visualization
 **Distribution of 3 Year Repayment Rate by Institution Type**
 
