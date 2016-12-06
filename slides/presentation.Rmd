@@ -15,7 +15,7 @@ methods,results, analysis, conclusion, thank you slide
 
 # Client Profile
 
-## Client Profile 
+## Client Profile
 
 Our client is a credit institution that provides financial aid to students. The managers are interested in expanding their customer base but they would also like that most of the loans be payed back.
 
@@ -39,7 +39,7 @@ Documentation on all data is available at https://collegescorecard.ed.gov/data/d
 
 Response Variable: 3 Year Repayment Rate
 
-1. Data Cleaning: 
+1. Data Cleaning:
   * replacing PrivacySuppressed columns with NULL
   * Remove all columns with at at most 50% NULL
   * replace remaining NULL columns with column means
@@ -74,5 +74,16 @@ Response Variable: 3 Year Repayment Rate
 # Analysis
 
 # Conclusion
+
+## Conclusion
+
+Our regressions indicated that our client should pay closest attention to student completion rates, as these were the best predictor of repayment on federal loans for both four-year and less-than-four-year institutions. In addition, our regression analysis showed that postgraduate income - particularly the percentage of graduates earning very low incomes - was a good predictor of repayment rates.
+
+We believe that repayment rates on federal loans will likely be correlated with the same factors as repayment rates on private loans, so these factors are good predictors of the schools in which our client should offer loans.
+
+## Conclusion
+
+In addition to regression, we performed time series analysis to determine which schools are likely to have the highest future repayment rates, based on their past and current rates over six years. We created a list of top 100 colleges by predicted future repayment rates - our client can use this list to identify schools that are likely to well better in the future, in order to shift their efforts to those schools.
+
 
 # Thank You!
