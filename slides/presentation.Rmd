@@ -51,6 +51,26 @@ Response Variable: 3 Year Repayment Rate
 
 # Results
 
+## Visualization
+**Distribution of 3 Year Repayment Rate by Institution Type**
+
+<img src="../images/eda/rpy3yr_control_barplot_histogram.png" width="750px"/>
+
+## Visualizations
+**Distribution of 3 Year Repayment Rate by n Year Institutions**
+
+<img src="../images/eda/iclevel_rpy3yr_barplot_histogram.png" width="750px"/>
+
+## Visualizations
+**Scatter Plot: Completion Rate Rate vs. 3 Year Repayment Rate**
+
+<img src="../images/eda/complrt_rpy3yr_scatter.png" />
+
+## Visualizations
+**Scatter Plot: Net Price for Institution Type vs. 3 Year Repayment Rate**
+
+<img src="../images/eda/netprice_pub_priv_rpy3yr_scatter.png" height="400px"/>
+
 # Analysis
 
 # Conclusion
