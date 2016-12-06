@@ -52,7 +52,7 @@ Response Variable: 3 Year Repayment Rate
 
 # Results
 
-## Visualization
+## Visualizations
 **Distribution of 3 Year Repayment Rate by Institution Type**
 
 <img src="../images/eda/rpy3yr_control_barplot_histogram.png" width="750px"/>
@@ -132,8 +132,6 @@ Our client should pay close attention to:  \
 ```{r , results = "asis", fig = TRUE, include =TRUE, echo = FALSE, eval=TRUE, size = 200}
 load('../data/RData/tsa_data.RData')
 pander(top_100[1:8,])
-
-
 ```
 
 

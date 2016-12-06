@@ -187,7 +187,7 @@ cutoff <- top_100[nrow(top_100),2]
 school_100th <- top_100[nrow(top_100),1]
 @
 
-Notice the first school on the list has the average forecasted repayment of 1. This was fixed from its original value of 1.017357 since repayment rate cannot exceed 1. Such anomaly can be explained by the insufficient data availability for each school. According to the time series analysis, the cutoff for the projected repayment rate top 100 schools was \Sexpr{cutoff}, and the school name is \Sexpr{school_100th}.
+Notice the first school on the list has the average forecasted repayment of 1. This was fixed from its original value of 1.017357 since repayment rate cannot exceed 1. Such anomaly can be explained by the insufficient data availability for each school. According to the time series analysis, the cutoff for the projected repayment rate top 100 schools was \Sexpr{cutoff}, and the school name is \Sexpr{school_100th}.  
 \section{Conclusions}
 
 In this report, we analyzed how repayment rates on federal student loans varied as a result of several factors. We analyzed how federal student loan repayment rates vary between public and private schools, between regions, and between colleges with differing tuition costs and completion rates. In addition, we used regression and time series analysis to predict which colleges will likely have high private loan repayment rates, and which colleges have an upward trend in repayment rates - information valuable to a customer such as ours.
