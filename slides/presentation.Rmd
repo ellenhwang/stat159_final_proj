@@ -73,6 +73,46 @@ Response Variable: 3 Year Repayment Rate
 
 # Analysis
 
+## Analysis
+```{r echo = FALSE, cache = FALSE}
+
+suppressWarnings(library(xtable))
+load('../data/RData/ols.RData')
+load('../data/RData/lasso.RData')
+load('../data/RData/ridge.RData')
+load('../data/RData/pcr.RData')
+load('../data/RData/plsr.RData')
+load('../data/RData/correlation.RData')
+```
+
+```{r xtable, results = "asis", fig = TRUE, include =TRUE, echo = FALSE, eval=TRUE}
+cor_tab <- xtable(high_cor_rpy3yr_tbl, caption='Predictors with high correlation', digits = c(0,0,5))
+print(cor_tab, comment = FALSE, table.placement = 'H', type = 'html', caption.placement = 'top')
+```
+## Analysis -cont
+```{r , results = "asis", fig = TRUE, include =TRUE, echo = FALSE, eval=TRUE}
+mse <- data.frame(rpy_3yr_regsum$sigma, rpy3yr_lasso_test_mse, rpy3yr_ridge_test_mse,
+                  rpy_pcr_test_mse, rpy_pls_test_mse)
+colnames(mse) <- c("OLS", "Lasso", "Ridge", "PCR", "PLSR")
+mse_table <- xtable(mse, caption = "MSE of regressions", digits=c(0,5,5,5,5,5))
+print(mse_table, comment = FALSE, table.placement = 'H', type = 'html', caption.placement = 'top')
+```
+```{r , results = "asis", fig = TRUE, include =TRUE, echo = FALSE, eval=TRUE}
+ridge_coef <- as.data.frame(rpy3yr_rr_coef[-1,])
+colnames(ridge_coef) <- "Coefficients"
+ridge_coef <- xtable(ridge_coef, caption = 'Ridge Coefficients', digits = c(0,7))
+print(ridge_coef, comment = FALSE, table.placement = 'H', type = 'html', caption.placement = 'top')
+```
+## Analysis -cont
+```{r , results = "asis", fig = TRUE, include =TRUE, echo = FALSE, eval=TRUE}
+load('../data/RData/tsa_data.RData')
+tops <- xtable(top_100[1:10,], caption = 'Top 10 Schools', digits=c(0,0,4))
+print(tops, comment = FALSE, table.placement = 'H', type = 'html', caption.placement = 'top')
+cutoff <- top_100[nrow(top_100),2]
+school_100th <- top_100[nrow(top_100),1]
+```
+
+
 # Conclusion
 
 ## Conclusion
