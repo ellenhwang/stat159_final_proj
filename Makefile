@@ -1,4 +1,4 @@
-.PHONY = all data cleaning eda report ols ridge lasso pslr pcr tsa clean
+.PHONY = all data cleaning eda report ols ridge lasso pslr pcr tsa shiny clean
 
 all: data cleaning regressions report slides session
 
