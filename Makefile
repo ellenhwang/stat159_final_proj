@@ -74,6 +74,9 @@ slides/presentation.html: slides/presentation.Rmd
 tests:
 	Rscript code/test_that.R
 
+shiny:
+	cd shiny_app; Rscript -e "library(shiny); runApp('~/Documents/stat159_final_proj/shiny_app')"
+
 session:
 	bash code/session.sh
 
