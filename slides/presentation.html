@@ -116,7 +116,7 @@
 
 </article></slide><slide class='segue dark nobackground level1'><hgroup class = 'auto-fadein'><h2>Methods</h2></hgroup><article  id="methods">
 
-</article></slide><slide class=''><hgroup><h2>Methods</h2></hgroup><article  id="methods-1">
+</article></slide><slide class=''><hgroup><h2>Methods[1/2]</h2></hgroup><article  id="methods12">
 
 <p>Response Variable: 3 Year Repayment Rate</p>
 
@@ -126,7 +126,7 @@
 
 <ul>
 <li>replacing PrivacySuppressed columns with NULL</li>
-<li>Remove all columns with at at most 50% NULL</li>
+<li>Remove all columns with at least 50% NULL</li>
 <li>replace remaining NULL columns with column means</li>
 </ul>
 
@@ -137,7 +137,30 @@
 <ul>
 <li>Manually organize remaining columns by category to pick out variables relevant to research question</li>
 <li>Run correlation matrix on variables and select those with at least absolute value of .5 correlation to 3 year repayment rate</li>
-<li>Run basic OLS regression to narrow down the statistically significant variables</li>
+</ul>
+
+</article></slide><slide class=''><hgroup><h2>Methods[2/2]</h2></hgroup><article  id="methods22">
+
+<ol>
+<li>Regressions:</li>
+</ol>
+
+<ul>
+<li>Ordinary Least Squares Regression</li>
+<li>Lasso Regression</li>
+<li>Ridge Regression</li>
+<li>Principal Components Regression</li>
+<li>Partial Least Squares Regression</li>
+</ul>
+
+<ol>
+<li>Time Series Analysis:</li>
+</ol>
+
+<ul>
+<li>Find data with 3 year repayment rate available</li>
+<li>Predict 3 year forecast based on the data available</li>
+<li>Find 100 school with highest projected mean 3 year repayment rates</li>
 </ul>
 
 </article></slide><slide class='segue dark nobackground level1'><hgroup class = 'auto-fadein'><h2>Results</h2></hgroup><article  id="results">
@@ -387,13 +410,13 @@
 
 </article></slide><slide class=''><hgroup><h2>Conclusion</h2></hgroup><article  id="conclusion-1">
 
-<p>Our regressions indicated that our client should pay closest attention to student completion rates, as these were the best predictor of repayment on federal loans for both four-year and less-than-four-year institutions. In addition, our regression analysis showed that postgraduate income - particularly the percentage of graduates earning very low incomes - was a good predictor of repayment rates.</p>
+<p>Our regressions indicated that our client should pay closest attention to <strong>student completion rates</strong>, as these were the best predictor of repayment on federal loans for both four-year and less-than-four-year institutions. In addition, our regression analysis showed that <strong>postgraduate income</strong> - particularly the percentage of graduates earning very low incomes - was a good predictor of repayment rates.</p>
 
 <p>We believe that repayment rates on federal loans will likely be correlated with the same factors as repayment rates on private loans, so these factors are good predictors of the schools in which our client should offer loans.</p>
 
 </article></slide><slide class=''><hgroup><h2>Conclusion</h2></hgroup><article  id="conclusion-2">
 
-<p>In addition to regression, we performed time series analysis to determine which schools are likely to have the highest future repayment rates, based on their past and current rates over six years. We created a list of top 100 colleges by predicted future repayment rates - our client can use this list to identify schools that are likely to well better in the future, in order to shift their efforts to those schools.</p>
+<p>In addition to regression, we performed <strong>time series analysis</strong> to determine which schools are likely to have the highest future repayment rates, based on their past and current rates over six years. We created a list of top 100 colleges by predicted future repayment rates - our client can use this list to identify schools that are likely to well better in the future, in order to shift their efforts to those schools.</p>
 
 </article></slide><slide class='segue dark nobackground level1'><hgroup class = 'auto-fadein'><h2>Thank You!</h2></hgroup><article  id="thank-you"></article></slide>
 

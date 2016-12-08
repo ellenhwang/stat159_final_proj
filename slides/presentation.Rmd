@@ -36,19 +36,29 @@ Documentation on all data is available at https://collegescorecard.ed.gov/data/d
 
 # Methods
 
-## Methods
+## Methods[1/2]
 
 Response Variable: 3 Year Repayment Rate
 
 1. Data Cleaning:
   * replacing PrivacySuppressed columns with NULL
-  * Remove all columns with at at most 50% NULL
+  * Remove all columns with at least 50% NULL
   * replace remaining NULL columns with column means
-
 2. Variable Selection:
   * Manually organize remaining columns by category to pick out variables relevant to research question
   * Run correlation matrix on variables and select those with at least absolute value of .5 correlation to 3 year repayment rate
-  * Run basic OLS regression to narrow down the statistically significant variables
+
+## Methods[2/2]
+3. Regressions:
+ * Ordinary Least Squares Regression
+ * Lasso Regression
+ * Ridge Regression
+ * Principal Components Regression
+ * Partial Least Squares Regression
+4. Time Series Analysis:
+ * Find data with 3 year repayment rate available
+ * Predict 3 year forecast based on the data available
+ * Find 100 school with highest projected mean 3 year repayment rates
 
 # Results
 
@@ -139,13 +149,13 @@ pander(top_100[1:8,])
 
 ## Conclusion
 
-Our regressions indicated that our client should pay closest attention to student completion rates, as these were the best predictor of repayment on federal loans for both four-year and less-than-four-year institutions. In addition, our regression analysis showed that postgraduate income - particularly the percentage of graduates earning very low incomes - was a good predictor of repayment rates.
+Our regressions indicated that our client should pay closest attention to **student completion rates**, as these were the best predictor of repayment on federal loans for both four-year and less-than-four-year institutions. In addition, our regression analysis showed that **postgraduate income** - particularly the percentage of graduates earning very low incomes - was a good predictor of repayment rates.
 
 We believe that repayment rates on federal loans will likely be correlated with the same factors as repayment rates on private loans, so these factors are good predictors of the schools in which our client should offer loans.
 
 ## Conclusion
 
-In addition to regression, we performed time series analysis to determine which schools are likely to have the highest future repayment rates, based on their past and current rates over six years. We created a list of top 100 colleges by predicted future repayment rates - our client can use this list to identify schools that are likely to well better in the future, in order to shift their efforts to those schools.
+In addition to regression, we performed **time series analysis** to determine which schools are likely to have the highest future repayment rates, based on their past and current rates over six years. We created a list of top 100 colleges by predicted future repayment rates - our client can use this list to identify schools that are likely to well better in the future, in order to shift their efforts to those schools.
 
 
 # Thank You!
