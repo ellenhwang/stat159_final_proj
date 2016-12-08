@@ -182,6 +182,9 @@ stat159_final_proj/
 16. tests:
 		Rscript code/test_that.R
 
+## Shiny app
+https://wos-159.shinyapps.io/shiny-app/
+
 ## License
 
 This project involves producing software content (R code), as well as media content(narrative, and images).
